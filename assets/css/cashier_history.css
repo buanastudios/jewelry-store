@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'curwen_sansregular';
+    src: url('../fonts/curwen-sans/curwensans-webfont.woff2') format('woff2');
+    src: url('../fonts/curwen-sans/curwensans-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.table{
+	font-family: 'Verdana';	
+}
+.table th{
+	
+	font-weight:bold;
+	text-align:center;
+	
+}
+
+.table td{
+	text-align:center;
+	font-size:.8em;
+}
+
+.table td:nth-child(3),
+.table td:nth-child(5)
+{
+	text-align:left;
+}
+
+.table td:last-child{
+	text-align:right;
+}
+
+.fixed-table-container tbody .selected td{
+	background-color: rgba(191,155,48,.6);
+}
+
+.pagination-info{
+	display:none
+}

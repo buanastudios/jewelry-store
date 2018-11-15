@@ -1,0 +1,20 @@
+{
+  "name": "pnikolov/bootstrap-daterangepicker",
+  "type": "component",
+  "description": "Slim wrapper of Bootstrap Date range picker.",
+  "homepage": "http://www.daterangepicker.com",
+  "keywords": ["date picker", "date range picker", "bootstrap component"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dan Grossman",
+      "email": "dan@dangrossman.info",
+      "role": "Author"
+    }
+  ],
+  "require": {
+    "components/jquery": ">=1.10",
+    "components/bootstrap": "3.x",
+    "moment/moment": ">=2.9.0"
+  }
+}

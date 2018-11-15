@@ -1,0 +1,13 @@
+{
+  "name": "grimmlink/webcamjs",
+  "description": "Shim repository for WebcamJS",
+  "keywords": [
+    "webcam",
+    "camera",
+    "getusermedia",
+    "flash",
+    "jpegcam"
+  ],
+  "homepage": "https://github.com/jhuckaby/webcamjs",
+  "license": "MIT"
+}

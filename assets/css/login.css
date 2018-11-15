@@ -1,0 +1,21 @@
+.login-page{
+    background:url("../img/bgs/1600x1200-ringstamped.jpg");
+}
+
+.login-box-body{	
+	-webkit-filter: drop-shadow(5px 5px 5px #222);
+  	filter: drop-shadow(5px 5px 5px #222);
+}
+.login-title{
+    color:white;
+}
+
+#login-title-upper{
+    font-weight:bold;
+    color:white;
+}
+
+#login-title-lower{
+    font-weight:normal;
+    color:white;
+}
