@@ -27,7 +27,7 @@ function setInvoice($a,$b)
 function Header()
 {
     // Logo
-    //$this->Image('http://localhost:85/courses/derry/development/assets/img/neclace.jpg',10,6,30);
+    //$this->Image('http://localhost/courses/derry/development/assets/img/neclace.jpg',10,6,30);
     // Arial bold 15
     $this->SetFont('Arial','B',15);
     // Move to the right
@@ -82,11 +82,11 @@ function Footer()
 		$a2 = isset($_POST['a2']) ? $_POST['a2'] : $default_value['a2'];
 		$a3 = isset($_POST['a3']) ? $_POST['a3'] : $default_value['a3'];
 		
-		$theimage = '<img src="http://localhost:85/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';									
+		$theimage = '<img src="http://localhost/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';									
 		$theimage = genbarcode ($filename,$output, $dpi, $thickness,  $res, $rotation , 'KALUNG 100g', $font_family , $font_size , $a1 ,$a2, $a3);
 		
 		function genbarcode ($filename,$output, $dpi, $thickness,  $res, $rotation , $text2display , $font_family , $font_size , $a1 ,$a2, $a3){
-				return '<img src="http://localhost:85/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';									
+				return '<img src="http://localhost/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';									
 		}
 
 // Instanciation of inherited class
@@ -99,8 +99,8 @@ $pdf->SetTopMargin(12);
 $pdf->AddPage();
 
 $pdf->SetFont('Times','',12);
-$pdf->Image('http://localhost:85/courses/derry/development/assets/img/neclace.jpg',10,40,30);
-$pdf->Image('http://localhost:85/courses/derry/development/assets/img/barcode.png',70,50,30);
+$pdf->Image('http://localhost/courses/derry/development/assets/img/neclace.jpg',10,40,30);
+$pdf->Image('http://localhost/courses/derry/development/assets/img/barcode.png',70,50,30);
 $pdf->Cell(70,20,'',0,0,'R');
 $pdf->Cell(70,30,$b,0,0,'L');
 $pdf->Cell(30,40,$e,0,0);

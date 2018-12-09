@@ -89,18 +89,18 @@ class employee extends CI_Controller {
 		$this->load->view('footer', $dataFooter);
 	}
 	
-	function add(){
-		$this->global['pageTitle'] = 'New User | User Management';
+	// function add(){
+	// 	$this->global['pageTitle'] = 'New User | User Management';
 
-		$data['records'] =	$this->m_menu->getMenu($this->session->userdata('role'));
-		$dataFooter['spesificjs'] = array('users');
-		$dataBody['roles'] = $this->m_menu->getAll();
-		$this->load->view('header', $this->global);
-		$this->load->view('sidebar', $data);
-		$this->load->view('content/settings/users/input', $dataBody);
-		// $this->load->view('content/masters/users/input');
-		$this->load->view('footer', $dataFooter);
-	}
+	// 	$data['records'] =	$this->m_menu->getMenu($this->session->userdata('role'));
+	// 	$dataFooter['spesificjs'] = array('users');
+	// 	$dataBody['roles'] = $this->m_menu->getAll();
+	// 	$this->load->view('header', $this->global);
+	// 	$this->load->view('sidebar', $data);
+	// 	$this->load->view('content/settings/users/input', $dataBody);
+	// 	// $this->load->view('content/masters/users/input');
+	// 	$this->load->view('footer', $dataFooter);
+	// }
 
 	function edit(){
 		$this->global['pageTitle'] = 'Modify User | User Management';
@@ -171,7 +171,55 @@ class employee extends CI_Controller {
 		header('Content-Type: application/json');
     	echo json_encode( $data );	
 	}
-	
+
+	public function xv(){
+        $data = 'Some file data';
+        if ( ! write_file('./', $data)){
+            echo 'Unable to write the file';
+        }else{
+            echo 'File written!';
+        }
+    }
+
+    public function add($data=''){    	        
+        $m = new \Moment\Moment("now","Asia/Jakarta");
+    	$data_processing = ($data <>'') ? $data : $this->input->post('employee');
+    	$employee = array ( 	    					 	
+    					 	'fullname' => '',    					 	
+    					 	'shipping_address' => '',
+    					 	'city' => '',
+    					 	'zipcode' => '',
+    					 	'birthday' => ''    					 	
+    					 	);
+
+    	foreach ($data_processing as $data_index => $data_value){
+    		switch($data_processing[$data_index]['name']){
+    			case 'fullname' : 		$employee['fullname'] 			= $data_processing[$data_index]['value']; break;
+    			case 'homeaddress': 	$employee['shipping_address'] 	= $data_processing[$data_index]['value']; break;
+    			case 'birthday': 		$employee['birthday'] 			= $data_processing[$data_index]['value']; break;    			
+    			case 'homecity': 		$employee['city'] 				= $data_processing[$data_index]['value']; break;    			
+    			case 'zipcode': 		$employee['zipcode'] 			= $data_processing[$data_index]['value']; break;    			
+    		}
+
+    	}
+
+        $insert_prop  = array(             
+            'fullname' => $employee['fullname'],            
+            'shipping_address' =>$employee['shipping_address'],             
+            'birthday' =>$employee['birthday'],
+            'city' =>$employee['city'],
+            'zipcode' =>$employee['zipcode'],
+            'created_at' => $m->format()
+
+        );		
+
+        $inserted_id = $this->m_employee->insert($insert_prop);
+        $data['inserted_at'] = $inserted_id;        
+        $data['inserted_prop'] = $insert_prop;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
 	function logout() {
         $this->session->sess_destroy();
         redirect('login');

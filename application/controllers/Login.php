@@ -72,7 +72,7 @@ class Login extends CI_Controller {
 				if(strlen($this->input->post('referrer_uri'))>0){
 					redirect($this->input->post('referrer_uri'));
 				}else{
-					redirect('cashier/sales');
+					redirect('awal');
                     //switch($this->session->userdata('role')) {
                       //  redirect('login');
                     //}
@@ -115,11 +115,20 @@ class Login extends CI_Controller {
         }
     }
 
-    function sess_add(){
-         $sess_data['u_id'] = $qad->u_id;
-                    $sess_data['nama'] = $qad->fullaname;
-                    $sess_data['u_name'] = $qad->u_name;
-                    $sess_data['role'] = $qad->role_id;
+    function sess_add(){        
+        // exit;
+        $sess_data['u_id'] = $this->input->post('u_id');
+        // $sess_data['nama'] = $qad->fullaname;
+        // $sess_data['u_name'] = $qad->u_name;
+        // $sess_data['role'] = $qad->role_id;
+        $this->session->set_userdata($sess_data);
+        echo $this->session->userdata('u_id'); 
+    }
+
+    function api_retrieve_session(){
+        $data['data'] = $this->session->userdata;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
     }
 
     function logout() {

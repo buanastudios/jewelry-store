@@ -1,6 +1,7 @@
 <?php
 class m_employee extends CI_Model {
     private $table = "employees";
+    private $tablename = "person_profiles";
     private $viewname = "vw_employee_list";
 
     function semua() {
@@ -91,4 +92,10 @@ class m_employee extends CI_Model {
         $query = $this->db->get($this->viewname);
         return $query->result();        
     }
+
+    public function insert($info) {
+        $this->db->insert($this->tablename, $info);
+        return $this->db->insert_id();
+    }
+    
 };

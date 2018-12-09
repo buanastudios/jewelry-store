@@ -54,7 +54,7 @@
 					<div class="input-group input-group-sm">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-calendar"></i></span>				
-							<span class="input-group-text"><i class="fa fa-times"></i></span>
+							<span class="input-group-text id="cleardateparam" ><i class="fa fa-times"></i></span>
 						</div>
 						<input type="text" id="period" class="daterange form-control" aria-label="Date Periode" readonly >
 						<div class="input-group-append">

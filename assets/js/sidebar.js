@@ -39,7 +39,7 @@ $(function(){
 	    minimumResultsForSearch: 10,
 	    templateResult: function(result) {
 	        var rs = $("<div />").addClass("row");
-	        rs.append($("<div />").addClass("col-lg-2 col-md-2 col-sm-2 col-xs-2").html(result.id));
+	        // rs.append($("<div />").addClass("col-lg-2 col-md-2 col-sm-2 col-xs-2").html(result.id));
 	        rs.append($("<div />").addClass("col-lg-10 col-md-10 col-sm-10 col-xs-10").html(result.text));        
 	        return rs;
 	    },

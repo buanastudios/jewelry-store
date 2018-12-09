@@ -27,10 +27,12 @@ $(function(){
 			$("#canvas").html(r);
 			
 			$(".canvas-container").css("height","100%");
+			console.log(data_uri);
 		} );		
 			
 
 		console.log('snapped');
+
 	}
 	// END OF GRABBING IMAGE FROM WEBCAM
 	
@@ -83,19 +85,29 @@ $(function(){
 		e.preventDefault();
 		// alert(e.data.foo);
 		// var prod = $("form#product_properties_input").serialize();
-		var prodArr = $("form#product_properties_input").serializeArray();
-		console.log(prodArr);
-		$.ajax({
-			url: url_insert,
-			type: "POST",
-			async: false,
-			data: {
-				product: prodArr
-			},
-			succes: function (res){
-				console.log(res);
-			}
-		});
+		// 
+		// 
+		var xa = $("img", "#canvas").attr("src");
+		console.log(xa);
+		
+		if (parseFloat($("#berat").val())>0){
+			var prodArr = $("form#product_properties_input").serializeArray();
+
+			$.ajax({
+				url: url_insert,
+				type: "POST",
+				async: false,
+				data: {
+					product: prodArr
+				},
+				succes: function (res){
+					console.log(res);
+				}
+			});	
+		}else{
+			alert("berat belum diisi");
+		}
+		
 	}
 	
 	function init(){

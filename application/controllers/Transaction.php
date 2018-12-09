@@ -232,6 +232,7 @@ class Transaction extends CI_Controller {
 
 		 	$invoice_prop_detail  = array(
 	    		'transaction_head' => $headid,
+	    		'transaction_label' => 1,
 	    		'invoice_num' =>$invoice['invoice_num'],
 	    		'product_id' =>$invoice['product_id'],
 	    		'barcode' => $invoice['product_barcode'],
@@ -282,6 +283,7 @@ class Transaction extends CI_Controller {
 
 		 	$invoice_prop_detail  = array(
 	    		'transaction_head' => $headid,
+	    		'transaction_label' => 2,
 	    		'invoice_num' =>$invoice['invoice_num'],
 	    		'product_id' =>$invoice['product_buyback_id'],
 	    		'barcode' => $invoice['product_buyback_barcode'],

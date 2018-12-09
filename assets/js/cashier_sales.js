@@ -3,6 +3,10 @@ $(function(){
 	var url_gen = baseurl + "barcode/test";	
 	var url_product_img = baseurl + "product/itemImage";	
 	var url_save = baseurl + "transaction/sales/insert";		
+	var url_new_invoice = baseurl + "invoice/api_generate_new";		
+	var url_get_session = baseurl + "login/api_retrieve_session";
+	var url_print_invoice = baseurl + "invoice/print_6";
+	var is_session_expired = 0;
 
 	function init(){
 		numeral.locale('id');
@@ -21,10 +25,19 @@ $(function(){
 	$("#new_invoice").on("click", renew_invoice);
 
 	function hitungEmas (pricepergram, totalgram, adjustment){
-		return (totalgram*pricepergram) + adjustment;
+		console.log(totalgram + "x" + pricepergram + "+" + adjustment);
+		var a = totalgram;
+		var x = pricepergram;
+		var c = Math.ceil(a*x);
+		var b = c + adjustment;
+		console.log(a);
+		console.log(x);
+		console.log(c);
+		console.log(b);
+		return b;
 	}
 
-	var calcTarget = $("[name=pembulatan"); 
+	var calcTarget = $("[name=pembulatan]"); 
 	var newPrice = $("<input id='new_price_per_gram' type='number' />");
 
 	var theNum = 0;
@@ -52,7 +65,7 @@ $(function(){
 		theNum = 0;
 		$("[name=pembulatan]").val(theNum);
 		calcTarget = $(this);
-	});;
+	});
 	
 
 	$(".calc_num").on("click", function(e){
@@ -77,10 +90,16 @@ $(function(){
 
 	$(".calc_ops.ok").on("click", function(e){
 		e.preventDefault();
-		originalNum = parseFloat($("#product_price").text());		
+		// originalNum = parseFloat($("#product_price").text());		
+		originalNum = numeral($("#product_price").text()).value();		
 		additionalNum = parseFloat($("[name=pembulatan]").val());
-		//theNum = originalNum + additionalNum;
+		//theNum = originalNum + additionalNum;		
 		weightProduct = parseFloat($("#weight_product").text());
+
+		console.log("Original Num: "+originalNum);
+		console.log("Weight Product: "+weightProduct);
+		console.log("Additional Num: "+additionalNum);
+
 		theNum = hitungEmas($("#new_price_per_gram").val(),weightProduct,additionalNum);
 		$("#price_after_calc").val(theNum);
 		//theNum = 0;
@@ -196,7 +215,7 @@ $(function(){
 		theBody.empty();
 		// var theTrashButton = $("<button/>").addClass("btn btn-sm btn-warning").append($("<i />").addClass("fa fa-trash"));		
 		var theProductName = $("#name_product").text();
-		var theProductWeight = numeral($("#weight_product").text()).value();
+		var theProductWeight = parseFloat($("#weight_product").text());
 		var theProductPriceAfterCalc = numeral($("#price_after_calc").val()).value();
 		var theProductPricePerGram = theProductPriceAfterCalc/theProductWeight;
 		theProductPricePerGram = Number(theProductPricePerGram);
@@ -218,10 +237,18 @@ $(function(){
 
 	function print_invoice(o){
 		o.preventDefault();		
-		console.log("trying to print invoice");
-		var invoicetable			= $("#purchase_notes").children("tbody");		
-		if ($("tr",invoicetable).length>0){
-			save_invoice(invoicetable);
+		console.log("trying to print invoice");		
+		console.log(is_session_expired);
+		getCurrentSession();
+		if (is_session_expired>0){			
+			alert("SESSION sudah Expired atau belum memilih NAMA KARYAWAN");
+		}else{
+			var invoicetable	= $("#purchase_notes").children("tbody");		
+			if ($("tr",invoicetable).length>0){
+				save_invoice(invoicetable);
+			}else{
+				console.log('nothing to print');
+			};
 		}
 
 	}
@@ -233,12 +260,14 @@ $(function(){
 			product_id : $(".textproductname").attr("product_id"),
 			product_barcode : $(".textproductname").attr("product_barcode"),
 			unit_price: numeral($("td.fixed_product_price_per_gram",thefixed).html()).value(),
-			unit_weight : numeral($("td.fixed_product_weight",thefixed).html()).value()
+			unit_weight : parseFloat($("td.fixed_product_weight",thefixed).html())
 			};		
 
+		console.log(invoice_prop);
 
 		$.ajax({
 			type: "POST",
+			async: false,
 			url: url_save,
 			dataType: 'JSON',			
 			data: {
@@ -250,21 +279,74 @@ $(function(){
 					invoice: invoice_prop
 
 			},
-			success: function (result) {
-            	console.log('ceritanya success insert');
-        	}	
+			success: displaySavingResponse
 		});
+
+		$("#print_invoice_to_paper").attr("action", url_print_invoice);
+		$("#print_invoice_to_paper").submit();        
+	}
+
+	function displaySavingResponse(res){
+		console.log(res) 
+        console.log('ceritanya success insert');
+		$("#print_invoice_to_paper").submit();        
+	}
+	function getCurrentSession(){		
+		$.ajax({
+			type: "POST",
+			async: false,
+			url: url_get_session,
+			dataType: 'json',
+			async: false,				
+			success: displayCurrentSession
+		});				
+	}
+
+	function displayCurrentSession(res){
+		console.log(res.data);
+		console.log(res.data.u_id);
+		console.log(parseInt(res.data.u_id));
+		var ensureInteger = parseInt(res.data.u_id);
+		if(ensureInteger>0){
+			is_session_expired = 0;
+		};
+
+		if (res.data.u_id == undefined){
+			is_session_expired = 1;		
+		};
+
+		console.log(is_session_expired);
 	}
 
 	function renew_invoice(o){
 		o.preventDefault();
 		console.log("trying to reset/new invoice");
-		resetall();
+		// resetall();
+		getNewInvoice();
 	}
 	
-	function resetall(){
+	function getNewInvoice(){		
+		$.ajax({
+			type: "POST",
+			url: url_new_invoice,
+			dataType: 'json',
+			async: false,	
+			data: {
+				trx_type:1
+			},		
+			success: displayNewInvoice
+		});		
+	}
+
+	function displayNewInvoice(res){
+		console.log(res.data);
+		resetall(res.data);
+	}
+
+	function resetall(new_invoice_num){
 		var theBody = $("#purchase_notes").children("tbody");
 		theBody.empty();
+		$("#num_invoice").html(new_invoice_num);
 		$("#name_product").html('');
 		$("#category_product").html('');
 		$("#weight_product").html('0');

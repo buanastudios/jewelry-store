@@ -9,10 +9,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 	<div id="toolbar">
                         <div class="btn-group">
-                            <button id="toggle_sales" type="button" class="togglehistory btn btn-primary">
+                            <button id="employee_add_btn" type="button" class="togglehistory btn btn-primary">
                                 <i class="fas fa-plus"></i>&nbsp;Add
                             </button>                            
-                            <button id="toggle_expense" type="button" class="btn btn-danger">
+                            <button id="employee_del_btn" type="button" class="btn btn-danger">
                                 <i class="fas fa-trash"></i>&nbsp;
                             </button>                        
                         </div>

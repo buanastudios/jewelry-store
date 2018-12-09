@@ -1,5 +1,5 @@
 $(function(){	
-	var url_insert = baseurl+'employee/add';
+	var url_update = baseurl+'employee/update';
 
 	$("#newemployee").on("click", insert_newemployee);
 
@@ -11,7 +11,7 @@ $(function(){
 
 		// if (parseFloat($("#berat").val())>0){			
 			$.ajax({
-				url: url_insert,
+				url: url_update,
 				type: "POST",
 				async: false,
 				data: {

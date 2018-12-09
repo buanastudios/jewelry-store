@@ -115,7 +115,7 @@
 								<div class="col-sm-12">
 									<?php ?>
 									
-									<form action="<?php echo base_url("cashier/invoice"); ?>" method="POST">
+									<form id="print_invoice_to_paper" name="print_invoice_to_paper" action="<?php echo base_url("cashier/invoice"); ?>" method="POST">
 										<input type="hidden" name="invoice_properties" value="INV#9876543" />
 										<input type="hidden" name="invoice_num" value="INV#9876543" />
 										<input type="hidden" name="product_name" value="Cincin Emas Muda" />

@@ -5,10 +5,15 @@ $(function(){
 
     $("#search_book_by_date").on("click",search_cashbook);
     $("[name=rep_type]").on("click", build_picker);  
+    $("#cleardateparam").on("click", clear_dateparam);
+
+    function clear_dateparam(){
+      $('#period').val("");
+    }
 
     function build_picker(e){      
       var p = $("[name=rep_type]:checked").val();  
-      alert(p);
+      console.log(p);
       var o = $('#period');
       o.val("");
 
@@ -56,7 +61,7 @@ $(function(){
 
       var terms = $("[name=rep_type]:checked").val();          
       var p = $("#period").val();
-      alert(p);
+      // alert(p);
       var r = [];
       r['terms'] = terms;
       r['day'] = '1';

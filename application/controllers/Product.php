@@ -4,15 +4,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Product extends CI_Controller {
 
 	protected $global = array();
-    
+    protected $imageFolder ="x/";
+
     function __construct() {
         parent::__construct();
 
         $this->load->model(array('m_product','m_inventory'));
     }	
 
-    public function add($data=''){    	
+    private function getNameWithPath(){
+        $name = $this->imageFolder.date('YmdHis').".jpg";
+        return $name;
+    }
 
+    public function showImage(){
+        $file = file_put_contents( $this->getNameWithPath(), file_get_contents('php://input') );
+        if(!$file){
+            return "ERROR: Failed to write data to ".$this->getNameWithPath().", check permissions\n";
+        }
+        else
+        {
+            $this->saveImageToDatabase($this->getNameWithPath());         // this line is for saveing image to database
+            return $this->getNameWithPath();
+        }
+        
+    }
+
+    public function xv(){
+        $data = 'Some file data';
+        if ( ! write_file('./', $data)){
+            echo 'Unable to write the file';
+        }else{
+            echo 'File written!';
+        }
+    }
+
+    public function add($data=''){    	
+        $this->xv();
+        exit();
     	$data_processing = ($data <>'') ? $data : $this->input->post('product');
     	$product = array ( 	'is_refurbished' => '',  
     					 	'barcode' => '', 

@@ -77,10 +77,19 @@ class Management extends CI_Controller {
 
 	public function employement_add(){
 		$data = ['usertype'=>$this->session->userdata('u_type'),'b'=>$this->global['today_date'],'wenzhixin'=>false];
-		$assets = ['css'=>'cashier_purchase.css','js'=>'cashier_purchase.js'];				
+		$assets = ['css'=>'management_employment-add.css','js'=>'management_employment-add.js'];				
 		$this->load->view('header',$assets);
 		$this->load->view('sidebar',$data);
 		$this->load->view('management/employment/add',$data);
+		$this->load->view('footer',$assets);	
+	}
+
+	public function employement_update(){
+		$data = ['usertype'=>$this->session->userdata('u_type'),'b'=>$this->global['today_date'],'wenzhixin'=>false];
+		$assets = ['css'=>'management_employment-edit.css','js'=>'management_employment-edit.js'];				
+		$this->load->view('header',$assets);
+		$this->load->view('sidebar',$data);
+		$this->load->view('management/employment/edit',$data);
 		$this->load->view('footer',$assets);	
 	}
 
@@ -129,11 +138,11 @@ class Management extends CI_Controller {
 	}
 
 	public function purchase(){
-		$data = ['a','b'];
-		$assets = ['css'=>'cashier_purchase.css','js'=>'cashier_purchase.js'];				
+		$data = ['usertype'=>$this->session->userdata('u_type'),'b'=>$this->global['today_date'],'wenzhixin'=>false];
+		$assets = ['css'=>'management_purchase-report.css','js'=>'management_purchase-report.js'];				
 		$this->load->view('header',$assets);
 		$this->load->view('sidebar',$data);
-		$this->load->view('cashier/purchase',$data);
+		$this->load->view('management/purchase-trx-report',$data);
 		$this->load->view('footer',$assets);	
 	}
 

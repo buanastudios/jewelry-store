@@ -18,42 +18,8 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index_2() {
-        $pdf= new mPDF();
-               // data to views
-        $data = array();
-        //load the view and saved it into $html variable
-        $html = $this->load->view('pdf_output',$data,true);
-        //this the the PDF filename that user will get to download
-        $pdfFilePath = "output_pdf_name.pdf";
-        
-        //generate the PDF from the given html
-        $pdf->WriteHTML($html);
-        
-        //download it.
-        $pdf->Output($pdfFilePath,"D");
-    }
-
-	public function index() {
-        
-        // data to views
-        $data = array();
-        //load the view and saved it into $html variable
-        $html=$this->load->view('pdf_output', $data, true);
-         
-        //this the the PDF filename that user will get to download
-        $pdfFilePath = "2nd_output_pdf_name.pdf";
-         
-        //load mPDF library
-        $this->load->library('pdf');
-        
-        // use this if you want to customize pdf
-        //$this->load->library('pdf',array('params' => ''));
-        
-        //generate the PDF from the given html
-        $this->pdf->WriteHTML($html);
-        
-        //download it.
-        $this->pdf->Output($pdfFilePath, "D");
+    
+    public function index(){
+        echo "Left Intentionally Blank";
     }
 }
