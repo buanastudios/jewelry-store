@@ -61,15 +61,15 @@
 
 </style>
 <?php 
-	$product['name'] = "Kalung Italy";
-	$product['image'] = base_url('assets/img/neclace.jpg');
-	$product['weight'] = "10 g";
-	$product['price'] = "19.000.000,-";
-	$product['priceinword'] = "SEMBILAN BELAS JUTA RUPIAH";
-	$product['trx'] = "19 December 2018";
-	$product['invoice'] = "INV19122018";
-	$product['barcode'] = "KL-INV19122018";
-	$product['cashier'] = "Kasir 1";
+	// $product['name'] = "Kalung Italy";
+	// $product['image'] = base_url('assets/img/neclace.jpg');
+	// $product['weight'] = "10 g";
+	// $product['price'] = "19.000.000,-";
+	// $product['priceinword'] = "SEMBILAN BELAS JUTA RUPIAH";
+	// $product['trx'] = "19 December 2018";
+	// $product['invoice'] = "INV19122018";
+	// $product['barcode'] = "KL-INV19122018";
+	// $product['cashier'] = "Kasir 1";
 	
 	$filename = "code128";		
 
@@ -99,7 +99,7 @@
 	$a3 = isset($_POST['a3']) ? $_POST['a3'] : $default_value['a3'];
 
 	// $theimage = '<img src="http://localhost:85/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';									
-	function genbarcode ($filename,$output, $dpi, $thickness,  $res, $rotation , $text2display , $font_family , $font_size , $a1 ,$a2, $a3){ return '<img src="http://localhost:85/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';	}
+	function genbarcode ($filename,$output, $dpi, $thickness,  $res, $rotation , $text2display , $font_family , $font_size , $a1 ,$a2, $a3){ return '<img src="http://localhost/courses/derry/development/assets/library/barcodegen.1d-php5.v2.2.0/html/image.php?code=' . $filename . '&amp;o=' . $output . '&amp;dpi=' . $dpi . '&amp;t=' . $thickness . '&amp;r=' . $res . '&amp;rot=' . $rotation . '&amp;text=' . urlencode($text2display) . '&amp;f1=' . $font_family . '&amp;f2=' . $font_size . '&amp;a1=' . $a1 . '&amp;a2=' . $a2 . '&amp;a3=' . $a3 . '" alt="Barcode Image" />';	}
 ?>
 <div id="invoice">
 	<div class="row">

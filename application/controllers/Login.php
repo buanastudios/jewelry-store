@@ -118,11 +118,11 @@ class Login extends CI_Controller {
     function sess_add(){        
         // exit;
         $sess_data['u_id'] = $this->input->post('u_id');
-        // $sess_data['nama'] = $qad->fullaname;
+        $sess_data['nama'] = $this->input->post('fullname');
         // $sess_data['u_name'] = $qad->u_name;
         // $sess_data['role'] = $qad->role_id;
         $this->session->set_userdata($sess_data);
-        echo $this->session->userdata('u_id'); 
+        print_r($this->session->userdata); 
     }
 
     function api_retrieve_session(){

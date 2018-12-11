@@ -30,6 +30,7 @@ $(function(){
 	// });
 	var loggeduser;
 	var url_employee_list = baseurl + 'employee/searchByTerm';
+	var url_current_user  = baseurl + 'login/api_retrieve_session';
 
 	 $("#userlogged").select2({
 	    tags: false,
@@ -69,14 +70,35 @@ $(function(){
 	      }
 	  });
 
+	 $("#user_logged").on("load", loadingCurrentUser);
+	 
+	 function init(){
+	 	loadingCurrentUser();
+
+	 }
+
+	 function loadingCurrentUser(){
+	 	$.ajax({
+				type: "POST",
+				url: url_current_user,
+				dataType: 'json',
+				async: false,				
+				success: onCurrentUserLoaded
+		});		
+	 }
+
+	 function onCurrentUserLoaded(res){
+	 	console.log(res);	 		 	
+	 	$('#userlogged').html(res.data.nama);
+	 }
+
 	 $('#userlogged').val('2');
 
 	 $("#userlogged").on("change", function (e) { 
 	 		console.log('perubahan');
 	 		loggeduser_id = $("#userlogged").select2("val");
 	 		loggeduser = $("#userlogged").select2('data')[0]['text'];
-	 		
-	 		
+	 			 		
 	 		$("#user_logged").html(loggeduser);
 
 	 		var url_new_session = baseurl + 'login/sess_add'
@@ -86,7 +108,8 @@ $(function(){
 				dataType: 'json',
 				async: false,
 				data: {
-					u_id: loggeduser_id
+					u_id: loggeduser_id,
+					fullname: loggeduser
 				},
 				success: onUserLogged
 			});		
@@ -95,4 +118,6 @@ $(function(){
 	 function onUserLogged(res){
 	 	console.log(res);
 	 }
+
+	 init();
 });

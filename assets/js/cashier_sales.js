@@ -235,6 +235,40 @@ $(function(){
 		
 	}
 
+	function prepare_invoice_print(){
+
+		console.log($("#num_invoice").html());
+		console.log($("#fixed_product_name").html());
+		console.log($("#trx_date").html());
+		console.log($("#user_logged").html());
+		console.log($("#fixed_product_weight").html());
+		console.log($("#fixed_product_price_per_unit").html());
+		console.log($("#invoice_total_wordy").html());
+
+		$("#prep_invoice_num").val($("#num_invoice").html());
+		$("#prep_product_name").val($("#fixed_product_name").html());
+		$("#prep_invoice_trx_date").val($("#trx_date").html());
+		$("#prep_cashier_name").val($("#user_logged").html());
+		$("prep_product_weight").val($("#fixed_product_weight").html());
+		$("prep_invoice_price").val($("#fixed_product_price_per_unit").html());
+		$("prep_invoice_price_word").val($("#invoice_total_wordy").html());
+
+		// $("#num_invoice").html(new_invoice_num);
+		// $("#name_product").html('');
+		// $("#category_product").html('');
+		// $("#weight_product").html('0');
+		// $("#product_price").html(numeral(0).format('$ 0.00'));
+		// $("#price_after_calc").val('');
+		// $("#keterangan_barang").html('');
+		// $("#new_price_per_gram").val('');
+		// $("#barcode").val('');
+		// $("#pembulatan").val('0');
+		// $("#class_product").html('');
+		// $("#new_price_per_gram").val(0);
+		// $("#invoice_total").html(numeral(0).format('$ 0,0.00'));
+		// $("#invoice_total_wordy").html(num2words(numeral(0).value()));
+	}
+
 	function print_invoice(o){
 		o.preventDefault();		
 		console.log("trying to print invoice");		
@@ -245,7 +279,9 @@ $(function(){
 		}else{
 			var invoicetable	= $("#purchase_notes").children("tbody");		
 			if ($("tr",invoicetable).length>0){
-				save_invoice(invoicetable);
+
+				// save_invoice(invoicetable);
+				prepare_invoice_print();
 			}else{
 				console.log('nothing to print');
 			};

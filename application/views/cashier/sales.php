@@ -23,7 +23,15 @@
 					<div class="row">
 		                <div class="col-md-3">							
 							<div class="form-group" >								
-								<span id="user_logged">Nama Karyawan</span>
+								<span id="user_logged">
+									<?php
+										if (!$this->session->userdata('nama')) {
+											echo "Nama Karyawan";
+										}else{
+											echo $this->session->userdata('nama');
+										}
+									?>
+								</span>
 							</div>							
 						</div>
 						<div class="col-md-3">
@@ -115,16 +123,16 @@
 								<div class="col-sm-12">
 									<?php ?>
 									
-									<form id="print_invoice_to_paper" name="print_invoice_to_paper" action="<?php echo base_url("cashier/invoice"); ?>" method="POST">
+									<form target="_blank" id="print_invoice_to_paper" name="print_invoice_to_paper" action="<?php echo base_url("cashier/invoice"); ?>" method="POST">
 										<input type="hidden" name="invoice_properties" value="INV#9876543" />
-										<input type="hidden" name="invoice_num" value="INV#9876543" />
-										<input type="hidden" name="product_name" value="Cincin Emas Muda" />
-										<input type="hidden" name="invoice_trx_date" value="09 September 2018" />
-										<input type="hidden" name="cashier_name" value="Derry" />
-										<input type="hidden" name="product_weight" value="11.09 gram" />
-										<input type="hidden" name="product_price" value="12.900.000,- IDR" />
-										<input type="hidden" name="invoice_price" value="12.900.000,- IDR" />
-										<input type="hidden" name="invoice_price_word" value="DUA BELAS JUTA SEMBILAN RATUS RIBU RUPIAH" />										
+										<input type="hidden" id="prep_invoice_num" name="invoice_num" value="INV#9876543" />
+										<input type="hidden" id="prep_product_name" name="product_name" value="Cincin Emas Muda" />
+										<input type="hidden" id="prep_invoice_trx_date" name="invoice_trx_date" value="09 September 2018" />
+										<input type="hidden" id="prep_cashier_name" name="cashier_name" value="Derry" />
+										<input type="hidden" id="prep_product_weight" name="product_weight" value="11.09 gram" />
+										<input type="hidden" id="prep_product_price" name="product_price" value="12.900.000,- IDR" />
+										<input type="hidden" id="prep_invoice_price" name="invoice_price" value="12.900.000,- IDR" />
+										<input type="hidden" id="prep_invoice_price_word" name="invoice_price_word" value="DUA BELAS JUTA SEMBILAN RATUS RIBU RUPIAH" />										
 									</form>									
 								</div>
 							</div>

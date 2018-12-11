@@ -139,7 +139,47 @@ class Invoice extends CI_Controller {
         $dompdf->stream("welcome.pdf", array("Attachment"=>0));
 	}
 
-	public function print_6(){
+	public function print_6(){		
+		print_r($_REQUEST);
+
+		$product['name'] = $_REQUEST['product_name'];
+		$product['cashier'] = $_REQUEST['cashier_name'];	
+		$product['weight'] = $_REQUEST['product_weight'];
+		$product['price'] = $_REQUEST['invoice_price'];		
+		$product['trx'] = $_REQUEST['invoice_trx_date'];
+		$product['invoice'] = $_REQUEST['invoice_num'];
+
+		$product['priceinword'] = "SEMBILAN BELAS JUTA RUPIAH";
+		$product['barcode'] = "KL-INV19122018";
+		$product['image'] = base_url('assets/img/neclace.jpg');
+	
+		$data = array('product'=>$product);		
+		
+		$this->load->view('invoice',$data);
+		$html=$this->output->get_output();   
+		$pdfFilePath = uniqid().".pdf";
+		$param =[];
+		$param = array('resetpagenum' => '1',
+				   'sheet-size' => array(210,110),
+				   'orientation' => 'P',
+				   'margin-left' => 0,
+				   'margin-right' => 0,
+				   'margin-top' => 0,
+				   'margin-bottom' => 0);
+				 $this->load->library('pdf');
+		      $this->pdf->AddPageByArray($param);
+		      $md = "testing invoice";
+		      $this->pdf->SetTitle($md);
+		      $this->pdf->SetAuthor("arthipesa.com");
+		      $this->pdf->SetCreator("arthipesa.com");
+		      $this->pdf->SetSubject("Jewelry Invoice");
+		      $this->pdf->SetKeywords("Jewelry,Invoice,arthipesa.com");
+		      $this->pdf->SetJS('this.print();');
+		      $this->pdf->WriteHTML($html);
+		      $this->pdf->Output();
+	}
+
+	public function print_0(){		
 		$data = array();
 		$this->load->view('invoice', $data, true);
 	}
