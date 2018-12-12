@@ -25,11 +25,11 @@ $(function(){
 	$("#new_invoice").on("click", renew_invoice);
 
 	function hitungEmas (pricepergram, totalgram, adjustment){
-		console.log(totalgram + "x" + pricepergram + "+" + adjustment);
-		var a = totalgram;
-		var x = pricepergram;
+		console.log(totalgram + "x" + pricepergram + "+" + adjustment);		
+		var a = parseFloat(totalgram);
+		var x = parseFloat(pricepergram);
 		var c = Math.ceil(a*x);
-		var b = c + adjustment;
+		var b = c + parseFloat(adjustment);
 		console.log(a);
 		console.log(x);
 		console.log(c);
@@ -216,10 +216,11 @@ $(function(){
 		// var theTrashButton = $("<button/>").addClass("btn btn-sm btn-warning").append($("<i />").addClass("fa fa-trash"));		
 		var theProductName = $("#name_product").text();
 		var theProductWeight = parseFloat($("#weight_product").text());
-		var theProductPriceAfterCalc = numeral($("#price_after_calc").val()).value();
+		var theProductPriceAfterCalc = numeral($("#price_after_calc").val()).value();		
 		var theProductPricePerGram = theProductPriceAfterCalc/theProductWeight;
 		theProductPricePerGram = Number(theProductPricePerGram);
-		theProductPricePerGram = theProductPricePerGram.toFixed(2);
+
+		theProductPricePerGram = parseFloat(theProductPricePerGram.toFixed(2));		
 		var theRow = $("<tr />");
 		// theRow.append($("<td />").html(theTrashButton));
 		theRow.append($("<td />").addClass("fixed_product_name").html(theProductName));
@@ -238,20 +239,20 @@ $(function(){
 	function prepare_invoice_print(){
 
 		console.log($("#num_invoice").html());
-		console.log($("#fixed_product_name").html());
+		console.log($(".fixed_product_name").html());
 		console.log($("#trx_date").html());
 		console.log($("#user_logged").html());
-		console.log($("#fixed_product_weight").html());
-		console.log($("#fixed_product_price_per_unit").html());
+		console.log($(".fixed_product_weight").html());
+		console.log($(".fixed_product_price_per_unit").html());
 		console.log($("#invoice_total_wordy").html());
 
 		$("#prep_invoice_num").val($("#num_invoice").html());
-		$("#prep_product_name").val($("#fixed_product_name").html());
+		$("#prep_product_name").val($(".fixed_product_name").html());
 		$("#prep_invoice_trx_date").val($("#trx_date").html());
 		$("#prep_cashier_name").val($("#user_logged").html());
-		$("prep_product_weight").val($("#fixed_product_weight").html());
-		$("prep_invoice_price").val($("#fixed_product_price_per_unit").html());
-		$("prep_invoice_price_word").val($("#invoice_total_wordy").html());
+		$("#prep_product_weight").val($(".fixed_product_weight").html());
+		$("#prep_invoice_price").val($(".fixed_product_price_per_unit").html());
+		$("#prep_invoice_price_word").val($("#invoice_total_wordy").html());
 
 		// $("#num_invoice").html(new_invoice_num);
 		// $("#name_product").html('');
@@ -280,8 +281,7 @@ $(function(){
 			var invoicetable	= $("#purchase_notes").children("tbody");		
 			if ($("tr",invoicetable).length>0){
 
-				// save_invoice(invoicetable);
-				prepare_invoice_print();
+				save_invoice(invoicetable);				
 			}else{
 				console.log('nothing to print');
 			};
@@ -318,13 +318,15 @@ $(function(){
 			success: displaySavingResponse
 		});
 
-		$("#print_invoice_to_paper").attr("action", url_print_invoice);
-		$("#print_invoice_to_paper").submit();        
+		// $("#print_invoice_to_paper").attr("action", url_print_invoice);
+		// $("#print_invoice_to_paper").submit();        
 	}
 
 	function displaySavingResponse(res){
 		console.log(res) 
         console.log('ceritanya success insert');
+        prepare_invoice_print();
+		$("#print_invoice_to_paper").attr("action", url_print_invoice);
 		$("#print_invoice_to_paper").submit();        
 	}
 	function getCurrentSession(){		

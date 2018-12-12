@@ -255,8 +255,9 @@ class Transaction extends CI_Controller {
 			$data['error'][] = "Unable to insert invoice  of ".htmlspecialchars($invoice['invoice_num']);    	    	 	
 		 }			    	
 
-		header('Content-Type: application/json');    	
-		echo json_encode( $data );	
+		return $data;
+		// header('Content-Type: application/json');    	
+		// echo json_encode( $data );	
     }
 
     public function insert_purchase($invoice){
@@ -324,8 +325,12 @@ class Transaction extends CI_Controller {
 		switch($t){
 			case "history": $data['data'] =	$this->m_transactions->getSalesTransaction();		break;
 			case "rank": $data['data'] =	$this->m_transactions->getSalesRank();		break;			
-			case "insert": $this->insert_sale($this->input->post('invoice')); $data['insert_status'] = 'processed'; break;
+			case "insert": 	$data['condition'] = $this->insert_sale($this->input->post('invoice')); 
+							$data['insert_status'] = 'processed';
+							$data['data'] = "";					
+							break;
 		}
+		
 		
 		header('Content-Type: application/json');    	
 		echo json_encode( $data );	
