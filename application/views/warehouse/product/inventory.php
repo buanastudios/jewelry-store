@@ -13,9 +13,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group">
-                        <button id="add_product" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah</button>
+                        <button id="add_product" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add</button>
                         <button id="transfer_product" class="btn btn-warning btn-sm"><i class="fa fa-share-square"></i> Transfer</button>
+                    </div>
+                    <div class="btn-group">
                         <button id="deactivate_product" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Deactivate</button>
+                        <button id="activate_product" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Activate</button>
                     </div>
                 </div>
             </div>

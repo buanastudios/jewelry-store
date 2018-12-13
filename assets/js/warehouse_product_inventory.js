@@ -1,3 +1,9 @@
+/** 
+ * Author: sakti.buana@arthipesa.com
+ * Date: 14/12/2018
+ * Time: 06:09 AM
+ */
+
 $(function(){
   	var url_inventory = baseurl+'product/itemList';   		
     var url_add_product = baseurl + 'warehouse/product/add';
@@ -7,6 +13,76 @@ $(function(){
   	var $tablen = $("#inventory");
 
     $("#add_product").on("click", addmoreproduct);
+    $("#deactivate_product").on("click",deactivateSelectedProduct);
+    $("#activate_product").on("click",activateSelectedProduct);
+    $("#checkAll").on("change", toggleTickAllRows);
+
+    // THIS IS THE TOGGLETICKALLROWS FUNCTION WHICH THE NAME IS EXPLAINING ITSELF
+    function toggleTickAllRows(e){
+      e.preventDefault();
+      var status = this.checked;
+      console.log(status);
+
+      $(".checkbox input").each(function(){
+          this.checked = status;
+      });
+    }
+
+    // THIS IS THE TOGGLEACTIVATION FUNCTION THAT ACTUALLY WORKS
+    function toggleActivation(status=true){
+      var selectedRow = $(".checkbox input:checkbox:checked").map(function(){
+        // return $(this).val();
+        return $(this).parent().parent();
+    }).get();
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+    }).get();
+      var selectedToggle = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().find('.product_status');
+    }).get();
+
+      $(selectedToggle).each(function(){
+        $("input:checkbox",this).each(function(){
+          this.checked = status;
+        });
+      });      
+    }
+
+    function activateSelectedProduct(e){
+        e.preventDefault();
+        toggleActivation(true);
+    }
+
+    // THIS IS THE TESTING FUNCTION FOR TOGGLE-ING
+    // function xyx(){
+    //   var selectedRow = $(".checkbox input:checkbox:checked").map(function(){
+    //     // return $(this).val();
+    //     return $(this).parent().parent();      
+    //   }).get();
+
+    //   var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+    //     return $(this).parent().parent().attr('barcode');
+    // }).get();
+    //   var selectedToggle = $(".checkbox input:checkbox:checked").map(function(){        
+    //     return $(this).parent().parent().find('.product_status');
+    // }).get();
+
+    //   $(selectedToggle).each(function(){
+    //     $("input:checkbox",this).each(function(){
+    //       this.checked = true;
+    //     });
+    //   });
+
+    //   console.log(selectedRow);
+    //   console.log(selectedBarcode);
+    //   console.log(selectedToggle);
+        
+    // }
+
+    function deactivateSelectedProduct(e){
+        e.preventDefault();
+        toggleActivation(false);
+    }
 
     function addmoreproduct(e){
       e.preventDefault();
@@ -44,12 +120,34 @@ $(function(){
         var product_wrapper = $("<div />").css("width","200px").append(product_wrapper_left).append(product_wrapper_right);
         var product_barcode = $("<div />").addClass("text-center").css("height","100px").css("padding","10px").css("background-color","white").append("<img src='http://localhost/courses/derry/jewelry-store/vendor/barcodegen.1d-php5.v2.2.0/html/image.php?code=code128&amp;o=1&amp;dpi=72&amp;t=30&amp;r=1&amp;rot=0&amp;text="+v.barcode+"&amp;f1=Arial.ttf&amp;f2=8&amp;a1=&amp;a2=&amp;a3=' alt='Barcode Image'>");
 
+        // var product_status = $("<div />").addClass("badge");
+
+        var toggle_ = $("<label />")
+                      .addClass("switch");
+
+                      // .append($("<input />").attr("type","checkbox").attr("checked","checked"))
+                      // .append($("<span />").addClass("slider round"));
+
+        var product_status = $("<div />").addClass("product_status").append(toggle_);
+
+        if (parseInt(v.status)>0){
+            toggle_.append($("<input />").attr("type","checkbox").attr("checked","checked"))
+                      .append($("<span />").addClass("slider round"));
+          // product_status.addClass("active").append($("<small />").html("<strike>Not</strike> Active"));
+        }else{
+          toggle_.append($("<input />").attr("type","checkbox"))
+                      .append($("<span />").addClass("slider round"));
+          // product_status.addClass("inactive").append($("<small />").html("Not Active"));
+        }                                         
+
+        var last_column = $("<div />").append(product_status).append(action_buttons);
+
         $trow = $("<tr/>").attr("barcode",v.barcode)                  
                         .append($("<td />").addClass("text-center align-middle").addClass("checkbox").append($("<input />").attr("type","checkbox").attr("id","check_"+i)))
                         .append($("<td />").html(product_barcode))
                         .append($("<td />").html(product_wrapper))                                              
                         .append($("<td />").addClass("text-right").html(i + " pc(s)"))
-                        .append($("<td />").html(action_buttons));
+                        .append($("<td />").html(last_column));
         $tbody.append($trow);
 
         

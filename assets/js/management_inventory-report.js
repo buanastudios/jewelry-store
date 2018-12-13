@@ -46,7 +46,8 @@ $(function(){
 
     function tidyDateColumn(){
       var seen = {};
-    $.each($("tr", $('tbody', $tablen)),function(i,v){
+      
+      $.each($("tr", $('tbody', $tablen)),function(i,v){
         // var thet = $(v).find("td:not(:first)").text();
         var tcol = $(v).find("td:first");
         var thet = $(v).find("td:first").text();
@@ -55,9 +56,9 @@ $(function(){
           seen[thet] += 1;            
           // $(tcol).attr("rowspan",seen[thet]);
           $(tcol).remove();         
-      }else{
-          seen[thet] = 1;
-      }
+        }else{
+            seen[thet] = 1;
+        }
       });     
 
     $.each($("tr", $('tbody', $tablen)),function(i,v){
@@ -96,9 +97,9 @@ $(function(){
       $thecolumn = $('td.quantity_sum', $thebody);      
       $theweightcolumn = $('td.weight_sum', $thebody);    
 
-    $the_quantityperunit_column = $('td.quantity_unit', $thebody);      
-    $the_weightperunit_column = $('td.weight_unit', $thebody);      
-    $the_desc_column = $('td.description_act', $thebody);     
+      $the_quantityperunit_column = $('td.quantity_unit', $thebody);      
+      $the_weightperunit_column = $('td.weight_unit', $thebody);      
+      $the_desc_column = $('td.description_act', $thebody);     
 
       var seen = {};
       var quantity_sum ={};

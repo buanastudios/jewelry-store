@@ -208,7 +208,7 @@ class Product extends CI_Controller {
 	}
 
     public function itemList(){
-        $data['data']  = $this->m_product->getItemList();        
+        $data['data']  = $this->m_inventory->getItemList();        
         header('Content-Type: application/json');       
         echo json_encode( $data );  
     }
