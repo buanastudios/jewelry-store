@@ -14,7 +14,7 @@
 					  <div class="form-group row">
 					    <label for="product_category" class="col-sm-2 col-form-label">Jenis</label>
 					    <div class="col-sm-5">
-					      <select class="form-control input-sm" name="product_category" id="product_category">
+					      <select class="form-control input-sm" name="product_category" id="product_category"></select><!-- 
 									<optgroup label="Jenis Barang">								
 										<option value=KL>Kalung</option>
 										<option value=LN>Liontin</option>
@@ -23,7 +23,7 @@
 										<option value=AN>Anting</option>
 										<option value=GW>Giwang</option>
 									</optgroup>
-								</select>
+								</select> -->
 					    </div>
 					    <div class="col-sm-1">
 					    	<button class="btn-sm btn btn-primary"><i class="fa fa-plus"></i></button>
@@ -47,15 +47,15 @@
 					  <div class="form-group row">
 					    <label for="product_class" class="col-sm-2 col-form-label">Kode</label>
 					    <div class="col-sm-5">
-					      <select class="select2 form-control input-sm" name="product_class" id="product_class">
-									<optgroup label="Keterangan">
+					      <select class="select2 form-control input-sm" name="product_class" id="product_class"></select>
+							<!-- 		<optgroup label="Keterangan">
 										<option value="1">Emas Tua 700</option>
 										<option value="2">Emas Tua 750</option>
 										<option value="3">Emas Muda 300</option>
 										<option value="4">Emas Muda 450</option>
 										<option value="5">Emas Arab</option>
 									</optgroup>
-								</select>
+								</select> -->
 					    </div>
 					    <div class="col-sm-1">
 					    	<button class="btn-sm btn btn-primary"><i class="fa fa-plus"></i></button>

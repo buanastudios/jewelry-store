@@ -2,7 +2,11 @@ $(function(){
 	//CONSTANTS
 	var url_insert = baseurl+'product/add';
 	var url_gen = baseurl+"barcode/test";		
-	var url_product_category = baseurl+'product/category';	
+	var url_product_category = baseurl+'product/categories';	
+	var url_product_class = baseurl+'product/classes';	
+
+	var product_category = [];
+	var product_class = [];
 
 	//GETTING THE IMAGES FROM WEBCAM	
 	var c_width = 400;
@@ -50,16 +54,22 @@ $(function(){
 
 	function generateBarcode(){				        
        var  pcategory = $("#product_category").val();    
+       var  pcatabbr = product_category.find(x=>x.id==pcategory).text;       
        var  pclass = $("#product_class").val();    
-       var  pissecond = 0;       
+       var  pissecond = 1;       
+       var  timestamp = moment().format("MMDYYYYhhmm");       
+       var 	pname = $("#product_name").val();
 
-       if ($('#is_secondhand').is(":checked")){
-            pissecond = 1;
+       if ($('#is_notrefurbished').is(":checked")){
+            pissecond = 0;
        }                                    
        
-       var combined = pcategory+'-'+pclass+pissecond;
-       // alert(combined);
+       var combined = pcatabbr+'-'+pclass+pissecond+timestamp;
+       console.log(combined);
+       console.log(pname);
+
        $("#product_barcode").val(combined);         
+       $("p.textproductname").html(pname);
        generateBarcodeImage(combined);   
 	}
 
@@ -87,11 +97,21 @@ $(function(){
 		// var prod = $("form#product_properties_input").serialize();
 		// 
 		// 
-		var xa = $("img", "#canvas").attr("src");
-		console.log(xa);
+		var xa = $("img", "#canvas").attr("src");		
+		var p = {name: 'product_image', value:xa };
+
+		var isNotRefurbished = 0;
+
+		if ($('#is_notrefurbished').is(":checked")){
+            isNotRefurbished = 1;
+       	} 
+		
+		var q = {name: 'product_isNotRefurbished', value:isNotRefurbished };       		 
 		
 		if (parseFloat($("#berat").val())>0){
 			var prodArr = $("form#product_properties_input").serializeArray();
+			prodArr.push(p);			
+			prodArr.push(q);			
 
 			$.ajax({
 				url: url_insert,
@@ -99,20 +119,91 @@ $(function(){
 				async: false,
 				data: {
 					product: prodArr
-				},
-				succes: function (res){
+				},				
+				success: function (res){
 					console.log(res);
 				}
 			});	
 		}else{
-			alert("berat belum diisi");
+			alert("Berat Produk belum diisi");
 		}
 		
 	}
 	
 	function init(){
 		//INITATE PRODUCT CATEGORY CHOICES
-		$("#product_category").select2({
+		console.log("Initation started ... ");
+
+		$.ajax({
+			placeholder: 'Pilih Kategori',
+			url: url_product_category,
+		    dataType: "json",		        	     
+		    success: function(res){		    	
+		    	product_category = $.map(res.data.rows, function (item) {											
+		                    return {
+		                        text: item.abbr,
+		                        id: item.id
+		                    }
+		                });
+
+		    	var d = $.map(res.data.rows, function (item) {											
+		                    return {
+		                        text: item.label,
+		                        id: item.id
+		                    }
+		                });
+
+		    	$("#product_category").select2({
+		    		data: d
+		    	})
+		    }
+		});
+
+		$.ajax({
+			placeholder: 'Pilih Jenis',
+			url: url_product_class,
+		    dataType: "json",		        	     
+		    success: function(res){		    	
+		    	product_class = $.map(res.data.rows, function (item) {											
+		                    return {
+		                        text: item.abbr,
+		                        id: item.id
+		                    }
+		                });
+
+		    	var d = $.map(res.data.rows, function (item) {											
+		                    return {
+		                        text: item.label,
+		                        id: item.id
+		                    }
+		                });
+
+		    	$("#product_class").select2({
+		    		data: d
+		    	})
+		    }
+		});
+
+		// $("#product_category").select2({		    	   
+		// 	placeholder: 'Pilih Kategori',
+		// 	minimumInputLength: 0,
+		//     ajax: {
+		//         url: url_product_category,
+		//         dataType: "json",		        	     
+		//         processResults: function (data) {				
+		//             return {
+		//                 results: $.map(data.data.rows, function (item) {											
+		//                     return {
+		//                         text: item.label,
+		//                         id: item.id
+		//                     }
+		//                 })
+		//             };
+		//         }
+		//       }
+		//     });
+
+		$("#product_category1").select2({
 		    tags: false,
 		    multiple: false,
 		    tokenSeparators: [',', ' '],
@@ -141,7 +232,7 @@ $(function(){
 		            return {
 		                results: $.map(data.data.rows, function (item) {											
 		                    return {
-		                        text: item.emboss_name,
+		                        text: item.label,
 		                        id: item.id
 		                    }
 		                })
@@ -149,6 +240,8 @@ $(function(){
 		        }
 		      }
 		    });
+
+		console.log("Initation completed ... ");
 	}
 
 	init();

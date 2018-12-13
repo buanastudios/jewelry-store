@@ -110,6 +110,12 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    <li>
+                                        <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Category</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Class</a>
+                                    </li>
                                 </ul>                                        
                         </li> 
                         

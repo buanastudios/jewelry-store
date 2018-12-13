@@ -1,9 +1,9 @@
 <?php
 
-class m_product_category extends CI_Model {
+class m_product_class extends CI_Model {
 
-    private $tablename = "product_category";    
-    private $viewname = "vw_product_categories";
+    private $tablename = "product_class";    
+    private $viewname = "vw_product_classes";
 
     function getBasedOnID($id) {
         $this->db->where("id", $id);
