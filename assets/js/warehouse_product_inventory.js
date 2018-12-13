@@ -161,10 +161,11 @@ $(function(){
 
     function remove_row(e){
       e.preventDefault();
-      var thisRow = $(this).parent().parent().parent();
+      console.log("initiate function: remove_row");
+      var thisRow = $(this).parent().parent().parent().parent();
       var barcode = thisRow.attr("barcode");
-      console.log(barcode);
-      
+      console.log("aquiring target: " , $(thisRow));
+      console.log("aquiring barcode: " + barcode);
       $.ajax({
         type: "POST",        
         url: url_remove_product,
@@ -177,6 +178,8 @@ $(function(){
       }); 
 
       thisRow.remove();
+      console.log("removed product: "+barcode);
+      console.log("end function: remove_row");
     }
 
     function getResponseAfterRemoveRow(o){
