@@ -91,6 +91,36 @@ class m_transactions extends CI_Model {
         $this->db->delete($this->tablename);
     }
 
+    function delete_other_expense($info){
+        $this->delete_other_expense_detail($info);
+        $this->delete_other_expense_head($info);        
+    }
+    
+    function delete_other_expense_head($info){
+        $this->db->where("invoice_num", $info);
+        $this->db->delete($this->table_trx_overview);   
+    }
+
+    function delete_other_expense_detail($info){
+        $this->db->where("invoice_num", $info);
+        $this->db->delete($this->table_trx_details);
+    }
+
+    function delete_other_income($info){
+        $this->delete_other_income_detail($info);
+        $this->delete_other_income_head($info);        
+    }
+    
+    function delete_other_income_head($info){
+        $this->db->where("invoice_num", $info);
+        $this->db->delete($this->table_trx_overview);   
+    }
+
+    function delete_other_income_detail($info){
+        $this->db->where("invoice_num", $info);
+        $this->db->delete($this->table_trx_details);
+    }
+
     public function getSalaryTransaction(){
         $this->db->order_by("trx_date","desc");
        $query = $this->db->get($this->view_salary);

@@ -7,10 +7,15 @@
                 <p>Happy working, 
                     <select id="userlogged" width="100%" style="width: 100%">
 
-                    </select>
-                    <span id="userlogged"><?php echo $this->session->userdata('nama'); ?></span>
+                    </select>                    
                 </p>
-                <p><a href="<?php echo base_url('login/logout'); ?>">Sign Out</a></p>
+                <p>
+                    <small><i class="fa fa-id-badge">&nbsp;</i></small>
+                    <span id="user_logged"><?php echo $this->session->userdata('nama'); ?></span>                                   
+                    <br/>
+                    <br/>
+                    <small><a href="<?php echo base_url('login/logout'); ?>">Sign Out</a>&nbsp;<i class="fa fa-sign-out-alt">&nbsp;</i></small>
+                </p>
                 <?php if ($usertype=='SysAdmin'){ ?>
                 <li >
                     <a href="#administrationMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cogs">&nbsp;</i>&nbsp;Administrator</a>

@@ -1,9 +1,12 @@
 $(function(){
+	var url_save 	= baseurl + "transaction/purchase/insert";	
+	var url_product = baseurl + 'product/readystock';
+	var url_product_img = baseurl + "product/itemImage";	
+
 	var barcode = $("#barcode").val();
 	var calcTarget = $("[id=berat_sebenarnya]"); 
 	var theNum = 0;
 	var selectedPurchaseDescription = "";
-	var url_save = "http://localhost:85/courses/derry/jewelry-store/transaction/purchase/insert";	
 
 	init();
 
@@ -74,8 +77,20 @@ $(function(){
 		var cp = numeral($("#current_product_price").html()).value();
 		var discount = numeral($("#total_potongan").text()).value();
 		var cw = parseFloat($("#berat_sebenarnya").val()/1000);
+		
+		var tp = parseFloat($("#total_potongan").text());
+		var bc = $("#barcode").val();
+		var lw	= parseFloat(numeral($("#weight_current_product").html()).value());
 
-		add_to_cart(cp,discount,cw);
+		console.log($(".wrong-value","#form_add"));
+		var wrv = $(".wrong-value","#form_add").length;
+		if (wrv == 0){
+			if (( tp > 0 ) && (lw > 0)){		
+				add_to_cart(cp,discount,cw);
+			}
+		}else{
+			alert("Maaf, masih ada nilai yang salah. Silahkan diperbaiki dahulu.");
+		}
 	});
 
 	//potonganharga
@@ -92,7 +107,37 @@ $(function(){
 	$("#berat_sebenarnya").on("change", function(o){
 		o.preventDefault();
 		var gram = $(this).val();
-		$("#total_potongan").html($("#potongan_harga").val()*gram);
+		var total_potongan = $("#potongan_harga").val()*gram;
+		
+		var harga_barang = parseFloat(numeral($("#current_product_price").html()).value());
+		var berat_barang = parseFloat(numeral($("#weight_current_product").html()).value()) * 1000;
+		$("#total_potongan").html(total_potongan);
+
+		//color indicator
+		if ((gram > berat_barang) && (gram>0)){
+			$(this).addClass("wrong-value");
+			$(this).removeClass("correct-value");			
+		}
+
+		if ((gram < berat_barang)&& (gram>0)){
+			$(this).addClass("correct-value");
+			$(this).removeClass("wrong-value");
+		}
+
+		if (harga_barang< total_potongan){
+			$("#total_potongan").removeClass("correct-value");
+			$("#total_potongan").addClass("wrong-value");
+		}
+
+		if (harga_barang > total_potongan){
+			$("#total_potongan").removeClass("wrong-value");
+			$("#total_potongan").addClass("correct-value");
+		}
+
+		if (total_potongan == 0){
+			$("#total_potongan").removeClass("wrong-value");
+			$("#total_potongan").removeClass("correct-value");
+		}
 	})
 
 	function generateInvoiceNum(){
@@ -108,7 +153,6 @@ $(function(){
 
 	function add_to_cart(currentprice, discount, currentweight){		
 		
-
 		var theBody = $("#receive_notes").children("tbody");
 		var theInvoice = generateInvoiceNum();
 		var theTrashButton = $("<button/>").addClass("btn btn-sm btn-warning").append($("<i />").addClass("fa fa-trash"));		
@@ -120,17 +164,23 @@ $(function(){
 		theProductPriceAfterCalc = theProductPriceAfterCalc * 1000;
 		var thePurchaseDescription = selectedPurchaseDescription;
 		
-		var theRow = $("<tr />").attr("invoice_num",theInvoice);		
-		theRow.append($("<td />").addClass("text-center").html($("<i />").addClass("fa fa-circle text-primary")));
-		theRow.append($("<td />").addClass("text-left").html("<small>"+theInvoice+"</small>"));
-		theRow.append($("<td />").addClass("text-left").html("3"));
-		theRow.append($("<td />").addClass("text-left").html(theProductName));		
-		theRow.append($("<td />").addClass("text-right").html(currentweight+" gr"));		
-		theRow.append($("<td />").addClass("text-center").html("700"));
+		var theRow 			= 	$("<tr />").attr("invoice_num",theInvoice);		
+
+		var invoice_column 	= 	$("<div />")
+								.append($("<div />").html(theInvoice))
+								.append($("<div />").html("Kasir: "+$("#userlogged").html()));		
+		var product_column 	= 	$("<div />")
+								.append($("<div />").html(theProductName))
+								.append($("<div />").html(currentweight+ " gr"))
+								.append($("<div />").html(700));
+
+		theRow.append($("<td />").css("text-align","center").css("vertical-align","middle").addClass("text-center").html($("<i />").addClass("fa fa-circle text-primary")));		
+		theRow.append($("<td />").addClass("text-left").html(invoice_column));
+		theRow.append($("<td />").addClass("text-left").html(product_column));				
 		theRow.append($("<td />").html(thePurchaseDescription));
 		theRow.append($("<td />").addClass("text-right").html(numeral(theProductPriceAfterCalc).format("$ 0,0.00")));
 
-		theBody.append(theRow);
+		theBody.prepend(theRow);
 		alltheRow = $("table#receive_notes tbody").find("tr");
 		alltheMoney = $("td:eq(7)", alltheRow);
 		var screenDisplay = 0;
@@ -141,8 +191,7 @@ $(function(){
 		});
 		
 		$("#invoice_total").html(numeral(screenDisplay).format("$ 0,0.00"));	
-
-		reset();
+		
 
 		var invoice = {
 			invoice_num: theInvoice,
@@ -153,7 +202,9 @@ $(function(){
 			product_buyback_id: theProductID
 		};
 		
-		save_invoice(invoice, theRow)
+		save_invoice(invoice, theRow);
+
+		reset();
 	};
 
 	function reset(){
@@ -177,11 +228,10 @@ $(function(){
 
 	function getProduct(){			
 		console.log("SEARCHING FOR ... " + $("#barcode").val());
-		var barcode = $('#barcode').val();
-		var abc= baseurl + 'product/readystock/'+barcode;
+		var barcode = $('#barcode').val();		
 		$.ajax({
 			type: "POST",
-			url: abc,
+			url: url_product+"/"+barcode,
 			dataType: 'json',
 			data: {
 				barcode: $('#barcode').val()				
@@ -209,12 +259,23 @@ $(function(){
 
 			$("#weight_current_product").html(numeral(parseFloat(d.data[0].weight)).format('0,0.00'));
 			$("#current_product_price").html(numeral(d.data[0].value_perweight).format('$ 0,0.00'));
-			$("#new_price_per_gram").val(d.data[0].value_pergram);
-			//getBarcodeImage();			
+			$("#new_price_per_gram").val(d.data[0].value_pergram);			
+			
+			var productImage = getProductImage();
+			$(".product_image").empty();
+			$(".product_image").append(productImage);
+
 		}else{
 			alert("Data tidak ditemukan.");
 		}
 		
+	}
+
+	function getProductImage(){				
+		return $("<img />")	.attr("src",url_product_img+"/"+$('#barcode').val())
+							.attr("alt","product Image of "+$('#barcode').val())
+							.css("width","200px")
+							.css("height","200px");			
 	}
 
 	function save_invoice(theInvoice, theRow){						

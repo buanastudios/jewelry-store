@@ -96,7 +96,7 @@
                             <tr>
                                 <th rowspan="2" class="checkedbox  text-center align-middle"><input type="checkbox" id="checkAll" /></th>
                                 <th colspan="2" rowspan="1" class="expense_trx_date text-center align-middle">Timestamp</th>         
-                                <th rowspan="2" class="trx_label text-center align-middle">Transaksi</th>
+                                <th rowspan="2" class="trx_label text-center align-middle">Transaksi</th>                                
                                 <th rowspan="2" class="trx_amount text-center align-middle">Jumlah</th>                                
                                 <th rowspan="2" class="trx_voucher text-center align-middle">Keterangan</th>
                             </tr>   

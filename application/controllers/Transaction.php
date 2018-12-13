@@ -339,6 +339,7 @@ class Transaction extends CI_Controller {
 	public function other_income($t='history'){
 		switch($t){
 			case "history": $data['data'] =	$this->m_transactions->getOtherIncomeTransaction();		break;						
+			case "delete":  $data['data'] =	$this->m_transactions->delete_other_income($this->input->post("trx_id"));		break;						
 		}
 		
 		header('Content-Type: application/json');    	
@@ -357,6 +358,7 @@ class Transaction extends CI_Controller {
 	public function other_expense($t='history'){
 		switch($t){
 			case "history": $data['data'] =	$this->m_transactions->getOtherExpenseTransaction();		break;						
+			case "delete":  $data['data'] =	$this->m_transactions->delete_other_expense($this->input->post("trx_id"));		break;				
 		}
 		
 		header('Content-Type: application/json');    	
