@@ -27,6 +27,16 @@ class m_product extends CI_Model {
         $this->db->delete($this->tablename);
     }
 
+    function delete_per_id($id) {
+        $this->db->where("id", $id);
+        $this->db->delete($this->tablename);
+    }
+
+    function delete_per_barcode($barcode) {
+        $this->db->where("barcode", $barcode);
+        $this->db->delete($this->tablename);
+    }
+
 	public function getMaxID(){
 		$this->db->select_max('product_id');        
         $query = $this->db->get($this->viewname);

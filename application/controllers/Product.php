@@ -91,6 +91,7 @@ class Product extends CI_Controller {
         $o['file'] = $data;       
         return $o;
     }
+
     public function add($data=''){    	
         $savedfile = $this->xv();                
     	$data_processing = ($data <>'') ? $data : $this->input->post('product');
@@ -133,6 +134,22 @@ class Product extends CI_Controller {
 
         $inserted_product = $this->m_product->insert($product_prop);
         $data['inserted'] = $inserted_product;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
+    public function remove($barcode=""){
+        echo $this->input->post('barcode');
+        $barcode = ($barcode=="" ? $this->input->post('barcode') : $barcode );
+        echo $barcode;
+
+        if ($barcode==""){
+            $data['deleted'] = "no barcode to delete";    
+        }else{
+            $delete_product = $this->m_product->delete_per_barcode($barcode);
+            $data['deleted'] = $delete_product;
+        }
+
         header('Content-Type: application/json');       
         echo json_encode( $data );  
     }

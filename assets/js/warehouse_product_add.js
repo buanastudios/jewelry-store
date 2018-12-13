@@ -4,6 +4,7 @@ $(function(){
 	var url_gen = baseurl+"barcode/test";		
 	var url_product_category = baseurl+'product/categories';	
 	var url_product_class = baseurl+'product/classes';	
+	var url_product_inventory = baseurl+'warehouse/product/inventory';	
 
 	var product_category = [];
 	var product_class = [];
@@ -122,6 +123,7 @@ $(function(){
 				},				
 				success: function (res){
 					console.log(res);
+					window.location.href = url_product_inventory;
 				}
 			});	
 		}else{
@@ -183,63 +185,6 @@ $(function(){
 		    	})
 		    }
 		});
-
-		// $("#product_category").select2({		    	   
-		// 	placeholder: 'Pilih Kategori',
-		// 	minimumInputLength: 0,
-		//     ajax: {
-		//         url: url_product_category,
-		//         dataType: "json",		        	     
-		//         processResults: function (data) {				
-		//             return {
-		//                 results: $.map(data.data.rows, function (item) {											
-		//                     return {
-		//                         text: item.label,
-		//                         id: item.id
-		//                     }
-		//                 })
-		//             };
-		//         }
-		//       }
-		//     });
-
-		$("#product_category1").select2({
-		    tags: false,
-		    multiple: false,
-		    tokenSeparators: [',', ' '],
-		    minimumInputLength: 2,
-		    minimumResultsForSearch: 10,
-		    templateResult: function(result) {
-		        var rs = $("<div />").addClass("row");
-		        rs.append($("<div />").addClass("col-lg-2 col-md-2 col-sm-2 col-xs-2").html(result.id));
-		        rs.append($("<div />").addClass("col-lg-10 col-md-10 col-sm-10 col-xs-10").html(result.text));
-		        console.log(result.text);
-		        return rs;
-		    },
-		    ajax: {
-		        url: url_product_category,
-		        dataType: "json",
-		        type: "GET",
-		        data: function (params) {
-
-		            var queryParameters = {
-		                term: params.term
-		            }
-		            return queryParameters;
-		        },
-		      
-		        processResults: function (data) {				
-		            return {
-		                results: $.map(data.data.rows, function (item) {											
-		                    return {
-		                        text: item.label,
-		                        id: item.id
-		                    }
-		                })
-		            };
-		        }
-		      }
-		    });
 
 		console.log("Initation completed ... ");
 	}
