@@ -1,0 +1,31 @@
+.drag-drop #drag-drop-area {
+    border: 4px dashed #ffc107;
+    height: 200px;
+}
+
+.drag-drop .drag-drop-inside {
+    margin: 70px auto 0;
+    width: 250px;
+}
+
+.drag-drop .drag-drop-inside p, .drag-drop-inside p.drag-drop-buttons {
+    display: block;
+}
+.drag-drop-inside p.drag-drop-info {
+    font-size: 20px;
+}
+.drag-drop .drag-drop-inside p {
+    text-align: center;
+}
+.drag-drop-inside p {
+    color: #a0a5aa;
+    font-size: 14px;
+    margin: 5px 0;
+    display: none;
+}
+
+.upload-response{
+  background-color:#ffc107;
+  border:white 1px solid;
+  height:50px;
+}

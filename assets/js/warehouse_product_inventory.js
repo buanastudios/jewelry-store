@@ -9,13 +9,43 @@ $(function(){
     var url_add_product = baseurl + 'warehouse/product/add';
     var url_remove_product = baseurl + 'product/remove';
     var url_product_image = baseurl + 'product/itemImage';
+    var url_export_products = baseurl + 'product/prepareExport';
   	var cur_postdate = Date("Y-M-d"); 
   	var $tablen = $("#inventory");
 
     $("#add_product").on("click", addmoreproduct);
-    $("#deactivate_product").on("click",deactivateSelectedProduct);
-    $("#activate_product").on("click",activateSelectedProduct);
+    $("#deactivate_product_btn").on("click",deactivateSelectedProduct);
+    $("#activate_product_btn").on("click",activateSelectedProduct);
+    $("#import_products_btn").on("click", importProducts);
+    $("#export_products_btn").on("click",exportProducts);
+
     $("#checkAll").on("change", toggleTickAllRows);
+
+    function exportProducts(){
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      console.log(selectedBarcode," are ready to export.");
+
+      $.ajax({
+        type: "POST",
+        url: url_export_products,
+        dataType: 'json',
+        async: false,
+        data: {
+          preparedForExport: selectedBarcode
+        },
+          success: function(res){
+            console.log(res);
+          }
+      }); 
+
+    }
+
+    function importProducts(){
+
+    }
 
     // THIS IS THE TOGGLETICKALLROWS FUNCTION WHICH THE NAME IS EXPLAINING ITSELF
     function toggleTickAllRows(e){
@@ -115,7 +145,15 @@ $(function(){
         var product_properties_name = $("<div />").css("white-space","nowrap").html(v.product_name);        
         var product_properties_class = $("<div />").addClass("badge").html(v.product_class);        
         var product_properties_weight = $("<div />").addClass("badge").html(v.weight+ " gram");        
-        var product_wrapper_right = $("<div />").css("float","right").css("width","40%").css("margin-left","10%").append(product_properties_name).append(product_properties_class).append(product_properties_weight);
+        var product_properties_priceperweight = $("<div />").addClass("badge").html(v.currency+ " " +v.value_perweight);        
+        var product_wrapper_right = $("<div />")  
+                                                .css("float","right")
+                                                .css("width","40%")
+                                                .css("margin-left","10%")
+                                                .append(product_properties_name)
+                                                .append(product_properties_class)
+                                                .append(product_properties_weight)
+                                                .append(product_properties_priceperweight);
 
         var product_wrapper = $("<div />").css("width","200px").append(product_wrapper_left).append(product_wrapper_right);
         var product_barcode = $("<div />").addClass("text-center").css("height","100px").css("padding","10px").css("background-color","white").append("<img src='http://localhost/courses/derry/jewelry-store/vendor/barcodegen.1d-php5.v2.2.0/html/image.php?code=code128&amp;o=1&amp;dpi=72&amp;t=30&amp;r=1&amp;rot=0&amp;text="+v.barcode+"&amp;f1=Arial.ttf&amp;f2=8&amp;a1=&amp;a2=&amp;a3=' alt='Barcode Image'>");

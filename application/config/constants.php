@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 define('VENDORPATH','http://'.$_SERVER['HTTP_HOST'].'/vendors.arthipesa.com');
+define('UPLOADPATH',FCPATH.'upload' );
+define('DOWNLOADPATH',FCPATH.'download' );
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace

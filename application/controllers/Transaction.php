@@ -236,7 +236,8 @@ class Transaction extends CI_Controller {
 	    		'invoice_num' =>$invoice['invoice_num'],
 	    		'product_id' =>$invoice['product_id'],
 	    		'barcode' => $invoice['product_barcode'],
-	    		'unit_price' =>$invoice['unit_price'],
+	    		'price_per_gram' =>$invoice['price_per_gram'],
+	    		'price_per_unit' =>$invoice['price_per_unit'],
 	    		'unit_weight' =>$invoice['unit_weight']    		
     		);
 

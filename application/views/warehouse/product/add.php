@@ -2,14 +2,19 @@
         <div id="content">
         	<div class="row">
 				<div class="col-md-6">
-					<h3> Product | Add</h3>
+					<h3> Product &raquo; Add</h3>
 				</div>
 			</div>
         	<div class="row">
 				<div class="col-md-6">
 					<form id="product_properties_input">
 						<div class="form-group row">
-					    	<label class="col-sm-12 col-form-label"><?php echo $b; ?></label>
+					    	<div class="col">
+								<div class="btn btn-group">
+					    			<button class="btn btn-outline-success btn-md"><i class="fa fa-file">&nbsp;</i></button>
+					    			<button class="btn btn-outline-success btn-md"><i class="fa fa-list">&nbsp;</i></button>
+					    		</div>
+					    	</div>						    	
 						</div>
 					  <div class="form-group row">
 					    <label for="product_category" class="col-sm-2 col-form-label">Jenis</label>
@@ -97,7 +102,7 @@
 									<div id="video" class="video"></div>
 								</div>					
 								<div class="btn-group btn">								
-									<button type="button" class="btn btn-sm btn-primary" name="cancel" onclick="snap(event);"><i class="fa fa-plus" style="font-size:4em;"></i></button>					
+									<button type="button" class="btn btn-sm btn-primary" name="print_barcode" id="print_barcode" ><i class="fa fa-print" style="font-size:4em;"></i><i class="fa fa-barcode" style="font-size:1.2em;"></i></button>					
 									<button type="button" class="btn btn-sm btn-primary" name="snapper" id="snapper"><i class="fa fa-camera" style="font-size:4em;"></i></button>					
 									<button type="button" class="btn btn-sm btn-primary" name="save_product" id="save_product"><i class="fa fa-save" style="font-size:4em;"></i></button>
 									</div>			

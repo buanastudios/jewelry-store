@@ -295,7 +295,9 @@ $(function(){
 			invoice_num:  $("#num_invoice").html(),
 			product_id : $(".textproductname").attr("product_id"),
 			product_barcode : $(".textproductname").attr("product_barcode"),
-			unit_price: numeral($("td.fixed_product_price_per_gram",thefixed).html()).value(),
+			// unit_price: numeral($("td.fixed_product_price_per_gram",thefixed).html()).value(),
+			price_per_gram: parseFloat($("td.fixed_product_price_per_gram",thefixed).html()),
+			price_per_unit: parseFloat($("td.fixed_product_price_per_unit",thefixed).html()),
 			unit_weight : parseFloat($("td.fixed_product_weight",thefixed).html())
 			};		
 

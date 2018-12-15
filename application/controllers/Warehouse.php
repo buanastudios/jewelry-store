@@ -31,9 +31,12 @@ class Warehouse extends CI_Controller {
 		$module= "warehouse";
 		$d = "product";
 		$f ="";
+		
 		switch($t){
-			case"inventory": $f='inventory'; break;
-			case"add": $f= 'add'; break;			
+			case "inventory": $f='inventory'; break;
+			case "add": $f= 'add'; break;			
+			case "import": $f= 'import'; break;			
+			case "export": $f= 'export'; break;			
 		}
 		
 		$v = $module.'/'.$d.'/'.$f;

@@ -23,7 +23,7 @@
 					<div class="row">
 		                <div class="col-md-3">							
 							<div class="form-group" >								
-								<span id="user_logged">
+								<span id="officer_name">
 									<?php
 										if (!$this->session->userdata('nama')) {
 											echo "Nama Karyawan";

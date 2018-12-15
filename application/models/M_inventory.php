@@ -63,6 +63,16 @@ class m_inventory extends CI_Model {
         return $data;
     }
 
+    public function getItemList_OK(){
+        $this->db->select("vw_products_readystock.barcode, vw_products_readystock.product_name, vw_products_readystock.weight, vw_products_readystock.is_secondhand,vw_products_readystock.product_class, vw_products_readystock.product_category, vw_products_readystock.status");
+        $this->db->from($this->view_readystock);        
+        $this->db->join('inventory_opname','inventory_opname.barcode=vw_products_readystock.barcode','Left');
+        $this->db->where('inventory_opname.barcode is NULL');
+        $query = $this->db->get();        
+        $data = $query->result();
+        return $data;
+    }
+
     public function getItemList(){
         $this->db->select("vw_products_readystock.barcode, vw_products_readystock.product_name, vw_products_readystock.weight, vw_products_readystock.is_secondhand,vw_products_readystock.product_class, vw_products_readystock.product_category, vw_products_readystock.status");
         $this->db->from($this->view_readystock);        

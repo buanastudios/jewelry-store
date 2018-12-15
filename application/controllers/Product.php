@@ -207,11 +207,39 @@ class Product extends CI_Controller {
         echo json_encode( $data );  
 	}
 
-    public function itemList(){
-        $data['data']  = $this->m_inventory->getItemList();        
+    public function itemList(){        
+        $data['data']  = $this->m_product->getItemList();        
         header('Content-Type: application/json');       
         echo json_encode( $data );  
     }
 
+    public function prepareExport($b=""){
+        //IF ARRAY OF MANY THEN ITERATE
+        //IF ARRAY OF ONE THEN ITERATE
+        //IF NOT AN ARRAY THEN PROCESS
+        //
+        $barcodes = $this->input->post('preparedForExport'); 
+        $data['data'] = [];
+        foreach($barcodes as $key=>$barcode){
+            array_push($data['data'],$this->m_product->getBasedOnBarcode($barcode));        
+        }
+
+        $data['tobeExported'] = $barcodes;
+
+        // $data['data']  = $this->m_product->getReadyStock($barcode);        
+        // header('Content-disposition: attachment; filename=file.json');
+        // header('Content-Type: application/json');       
+        $preparedFilename   = mt_rand().$this->global['moment']->format('mdYhhmmss');
+        $preparedFileext    = '.json';
+        $preparedFilepath   = DOWNLOADPATH."\\".$preparedFilename.$preparedFileext;
+        
+        $newJsonString = json_encode( $data );  
+        file_put_contents($preparedFilepath, $newJsonString);
+        // write_file('D:\pool\exportJson.json', $newJsonString, 'r+');
+    }    
+
+    public function prepareImport($certainfile){
+        //PROCESS UPLOADED FILE;
+    }
 }
 ?>

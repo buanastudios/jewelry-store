@@ -89,10 +89,10 @@ $(function(){
 
 	 function onCurrentUserLoaded(res){
 	 	console.log(res);	 		 	
-	 	$('#userlogged').html(res.data.nama);
+	 	$('#user_logged').html(res.data.nama);
 	 }
 
-	 $('#userlogged').val('2');
+	 // $('#userlogged').val('2');
 
 	 $("#userlogged").on("change", function (e) { 
 	 		console.log('perubahan');
@@ -100,6 +100,7 @@ $(function(){
 	 		loggeduser = $("#userlogged").select2('data')[0]['text'];
 	 			 		
 	 		$("#user_logged").html(loggeduser);
+	 		$("#officer_name").html(loggeduser);
 
 	 		var url_new_session = baseurl + 'login/sess_add'
 			$.ajax({
