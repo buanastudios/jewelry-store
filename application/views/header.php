@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="<?php echo base_url('vendor/select2/select2-bootstrap-theme/dist/select2-bootstrap.css').'?rand='.mt_rand(); ?> " crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css').'?rand='.mt_rand(); ?> ">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/sidebar.css').'?rand='.mt_rand(); ?> ">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/').$css.'?rand='.mt_rand(); ?> ">
     <link href="<?php echo VENDORPATH.'/fontawesome-free-5.1.0-web/css/all.css?'.mt_rand(); ?>" rel="stylesheet" type="text/css" />
     <!-- Font Awesome JS 

@@ -99,7 +99,7 @@ $(function(){
 	 		loggeduser_id = $("#userlogged").select2("val");
 	 		loggeduser = $("#userlogged").select2('data')[0]['text'];
 	 			 		
-	 		$("#user_logged").html(loggeduser);
+	 		$("#user_logged").html(loggeduser).parent().css("color","rgb(255, 255, 51)");
 	 		$("#officer_name").html(loggeduser);
 
 	 		var url_new_session = baseurl + 'login/sess_add'

@@ -12,7 +12,8 @@ class Warehouse extends CI_Controller {
             redirect('login');
         }        
 
-		$m = new \Moment\Moment("now","Asia/Jakarta");
+		       $m = new \Moment\Moment("now","Asia/Jakarta");
+        $this->global['moment'] = $m;
         $this->global['today'] = $m->format();
         $this->global['today_date'] = $m->format("d-M-y");
         $this->global['today_time'] = $m->format("H:i:s");
@@ -37,6 +38,7 @@ class Warehouse extends CI_Controller {
 			case "add": $f= 'add'; break;			
 			case "import": $f= 'import'; break;			
 			case "export": $f= 'export'; break;			
+			case "properties": $f= 'properties'; break;						
 		}
 		
 		$v = $module.'/'.$d.'/'.$f;

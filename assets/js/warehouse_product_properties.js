@@ -4,25 +4,26 @@
  * Time: 06:09 AM
  */
 
-$(function(){
-  	var url_inventory = baseurl+'product/itemList';   		
-    var url_add_product = baseurl + 'warehouse/product/add';
+$(function(){  	
+    var url_add_property_category = baseurl + 'warehouse/product/add';
+    var url_add_property_class = baseurl + 'warehouse/product/add';
+    var url_list_property_category = baseurl + 'warehouse/product/add';
+    var url_list_property_class = baseurl + 'warehouse/product/add';
     var url_remove_product = baseurl + 'product/remove';
-    var url_product_image = baseurl + 'product/itemImage';
-    var url_export_products = baseurl + 'product/prepareExport';
-    var url_import_products = baseurl + 'warehouse/product/import';
+
   	var cur_postdate = Date("Y-M-d"); 
-  	var $tablen = $("#inventory");
+  	var $tablen = $("#property");
 
-    $("#add_product").on("click", addmoreproduct);
-    $("#deactivate_product_btn").on("click",deactivateSelectedProduct);
-    $("#activate_product_btn").on("click",activateSelectedProduct);
-    $("#import_products_btn").on("click", importProducts);
-    $("#export_products_btn").on("click",exportProducts);
 
+    $("#list_category_btn").on("click", list_category);
+    $("#list_class_btn").on("click", list_class);
+    $("#add_category_btn").on("click", add_category);
+    $("#add_class_btn").on("click", add_class);
+    $("#remove_property_btn").on("click",remove_property);
+    
     $("#checkAll").on("change", toggleTickAllRows);
 
-    function exportProducts(){
+    function list_category(){
       var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
         return $(this).parent().parent().attr('barcode');
       }).get();
@@ -42,7 +43,72 @@ $(function(){
             alert(res.status);
           }
       }); 
+    }
 
+    function add_category(){
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      console.log(selectedBarcode," are ready to export.");
+
+      $.ajax({
+        type: "POST",
+        url: url_export_products,
+        dataType: 'json',
+        async: false,
+        data: {
+          preparedForExport: selectedBarcode
+        },
+          success: function(res){
+            console.log(res);
+            alert(res.status);
+          }
+      }); 
+    }
+
+    function add_class(){
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      console.log(selectedBarcode," are ready to export.");
+
+      $.ajax({
+        type: "POST",
+        url: url_export_products,
+        dataType: 'json',
+        async: false,
+        data: {
+          preparedForExport: selectedBarcode
+        },
+          success: function(res){
+            console.log(res);
+            alert(res.status);
+          }
+      }); 
+    }
+
+    function list_class(){
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      console.log(selectedBarcode," are ready to export.");
+
+      $.ajax({
+        type: "POST",
+        url: url_export_products,
+        dataType: 'json',
+        async: false,
+        data: {
+          preparedForExport: selectedBarcode
+        },
+          success: function(res){
+            console.log(res);
+            alert(res.status);
+          }
+      }); 
     }
 
     function importProducts(e){

@@ -9,9 +9,17 @@
 
                     </select>                    
                 </p>
+                <?php if(strlen($this->session->userdata('nama'))==0){
+                        $c= "officerisnotselected";
+                      }else{
+                        $c = "officerisselected";
+                      };
+                ?>
                 <p>
-                    <small><i class="fa fa-id-badge">&nbsp;</i></small>
-                    <span id="user_logged"><?php echo $this->session->userdata('nama'); ?></span>                                   
+                    <span id="userbadge"class="<?php echo $c; ?>">
+                        <small><i class="fa fa-id-badge">&nbsp;</i></small>
+                        <span id="user_logged"><?php echo $this->session->userdata('nama'); ?></span>                                   
+                    </span>
                     <br/>
                     <br/>
                     <small><a href="<?php echo base_url('login/logout'); ?>">Sign Out</a>&nbsp;<i class="fa fa-sign-out-alt">&nbsp;</i></small>
@@ -111,7 +119,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Category</a>
+                                        <a href="<?php echo base_url('warehouse/product/properties'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Properties</a>
                                     </li>
                                     <li>
                                         <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Class</a>

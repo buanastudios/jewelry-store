@@ -13,8 +13,8 @@ class Login extends CI_Controller {
     }
 
     function index() {                		
-        if ($this->session->userdata('u_name')) {
-            redirect('cashier/sales');
+        if ($this->session->userdata('u_type')) {
+            redirect('awal');
         }
         
 		$this->load->view('login_custom', $this->global);
@@ -52,7 +52,8 @@ class Login extends CI_Controller {
             $p = md5(($psw));
             $p = ($psw);            
             $cek = $this->m_user->cek($u, $p);            
-            print_r($cek);
+            //print_r($cek);
+
             if ($cek->num_rows() > 0) {
                 echo "login berhasil, buat session";
                 
@@ -78,9 +79,12 @@ class Login extends CI_Controller {
                     //}
 				}
 				
-            } else {
-                $this->session->set_flashdata('result_login', '<br>Username atau Password yang anda masukkan salah.');
-                redirect('login');
+            } else {                
+                $this->session->set_flashdata('result_login', '<br>Username atau Password yang anda masukkan salah.');                
+                // $this->load->view('login_custom', $this->global);
+                // $this->api_retrieve_session();
+                // exit();
+               redirect('login');
             }
         }
     }

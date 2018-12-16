@@ -176,28 +176,17 @@
 							<div class="row">
 							<div class="col-sm-12">
 								<table id="purchase_notes" 				
-														   class="table table-condensed table-bordered table-hover no-margin"
-														   data-toggle="table" 
-														   data-cache="false" 
-														   data-page-list="[10, 25, 50, 100, ALL]"
-														   data-pagination="true" 
-														   data-side-pagination="server"
-														   data-search="false"
-														   data-show-columns="false"
-														   data-show-export="true"                                       
-														   data-show-columns="true"
-														   data-toolbar="#toolbar"
-														   data-sort-name="id"
-														   data-sort-order="desc"
+														   class="table table-condensed table-bordered table-hover no-margin"														   
 															>
 															<thead>																															
-																<th data-field="sku" data-sortable="true" style="text-align:center;vertical-align:middle;">Barang</th>
-																<th data-field="unit_name" data-sortable="true" style="text-align:center;vertical-align:middle;">Kode</th>
-																<th data-field="label" data-sortable="true" style="text-align:center;vertical-align:middle;">Berat</th>																
-																<th data-field="subunit_name" data-sortable="true" style="text-align:center;vertical-align:middle;">Harga/gram</th>
-																<th data-field="category_name" data-sortable="true" style="text-align:center;vertical-align:middle;">Jumlah</th>                                           
+																<th data-sortable="true" style="text-align:center;vertical-align:middle;">Barang</th>
+																<th data-sortable="true" style="text-align:center;vertical-align:middle;">Kode</th>
+																<th data-sortable="true" style="text-align:center;vertical-align:middle;">Berat</th>																
+																<th data-sortable="true" style="text-align:center;vertical-align:middle;">Harga/gram</th>
+																<th data-sortable="true" style="text-align:center;vertical-align:middle;">Jumlah</th>                                           
 															</thead>	
-															<tbody></tbody>						
+															<tbody>																
+															</tbody>						
 															
 									</table>
 								</div>

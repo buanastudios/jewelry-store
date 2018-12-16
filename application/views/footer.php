@@ -58,10 +58,10 @@
     <script src="<?php echo base_url('assets/js/config.js').'?rand='.mt_rand();?>" type="text/javascript"></script>    
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });            
+            // $('#sidebarCollapse').on('click', function () {
+            //     $('#sidebar').toggleClass('active');
+            //     $(this).toggleClass('active');
+            // });            
 
             $("select").select2(
                {

@@ -7,6 +7,7 @@ $(function(){
 	var url_get_session = baseurl + "login/api_retrieve_session";
 	var url_print_invoice = baseurl + "invoice/print_6";
 	var is_session_expired = 0;
+	var purchasenotes	= $("tbody","#purchase_notes");
 
 	function init(){
 		numeral.locale('id');
@@ -278,9 +279,8 @@ $(function(){
 		if (is_session_expired>0){			
 			alert("SESSION sudah Expired atau belum memilih NAMA KARYAWAN");
 		}else{
-			var invoicetable	= $("#purchase_notes").children("tbody");		
+			var invoicetable	= $("tbody","#purchase_notes");//.children("tbody");		
 			if ($("tr",invoicetable).length>0){
-
 				save_invoice(invoicetable);				
 			}else{
 				console.log('nothing to print');
@@ -290,47 +290,52 @@ $(function(){
 	}
 
 	function save_invoice(thefixed){		
-		var invoice_prop = 
-		{
-			invoice_num:  $("#num_invoice").html(),
-			product_id : $(".textproductname").attr("product_id"),
-			product_barcode : $(".textproductname").attr("product_barcode"),
-			// unit_price: numeral($("td.fixed_product_price_per_gram",thefixed).html()).value(),
-			price_per_gram: parseFloat($("td.fixed_product_price_per_gram",thefixed).html()),
-			price_per_unit: parseFloat($("td.fixed_product_price_per_unit",thefixed).html()),
-			unit_weight : parseFloat($("td.fixed_product_weight",thefixed).html())
-			};		
 
-		console.log(invoice_prop);
+		var therowof = $("tr",$(purchasenotes));
+		var price_per_gram 	= 0;
+		var price_per_unit 	= 0;
+		var unit_weight 	= 0;
+		
+		$("td", $(therowof)).each(function(i,v){			
+			switch(i){
+				case 2: unit_weight = $(v).html(); break;
+				case 3: price_per_gram = $(v).html(); break;
+				case 4: price_per_unit = $(v).html(); break;
+			}
+		});
+
+		price_per_gram 	= parseFloat(numeral(price_per_gram).value());
+		price_per_unit 	= parseFloat(numeral(price_per_unit).value());
+		unit_weight 	= parseFloat(unit_weight);				
+
+		var invoice_prop = 
+			{
+				invoice_num:  $("#num_invoice").html(),
+				product_id : $(".textproductname").attr("product_id"),
+				product_barcode : $(".textproductname").attr("product_barcode"),			
+				price_per_gram: price_per_gram,
+				price_per_unit: price_per_unit,
+				unit_weight : unit_weight
+			};				
 
 		$.ajax({
 			type: "POST",
 			async: false,
 			url: url_save,
 			dataType: 'JSON',			
-			data: {
-					// invoice_num:  $("#num_invoice").html(),
-					// product_id : $(".textproductname").attr("product_id"),
-					// product_barcode : $(".textproductname").attr("product_barcode"),
-					// unit_price: numeral($("td.fixed_product_price_per_gram",thefixed).html()).value(),
-					// unit_weight : numeral($("td.fixed_product_weight",thefixed).html()).value(),
-					invoice: invoice_prop
-
-			},
+			data: {	invoice: invoice_prop },
 			success: displaySavingResponse
 		});
-
-		// $("#print_invoice_to_paper").attr("action", url_print_invoice);
-		// $("#print_invoice_to_paper").submit();        
 	}
 
 	function displaySavingResponse(res){
-		console.log(res) 
-        console.log('ceritanya success insert');
+		console.log('Insert is a success, now displaying return value and continue trying to print');
+		console.log(res)         
         prepare_invoice_print();
 		$("#print_invoice_to_paper").attr("action", url_print_invoice);
 		$("#print_invoice_to_paper").submit();        
 	}
+	
 	function getCurrentSession(){		
 		$.ajax({
 			type: "POST",

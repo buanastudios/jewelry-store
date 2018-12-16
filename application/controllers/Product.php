@@ -236,10 +236,49 @@ class Product extends CI_Controller {
         $newJsonString = json_encode( $data );  
         file_put_contents($preparedFilepath, $newJsonString);
         // write_file('D:\pool\exportJson.json', $newJsonString, 'r+');
+        $data['status']  = "Exported as ".$preparedFilepath;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
     }    
 
-    public function prepareImport($certainfile){
+    public function prepareImport($certainfile=""){
         //PROCESS UPLOADED FILE;
+        //
+        // print_r($_FILES);
+        $data['uploaded'] = $_FILES;
+        $file_name = $_FILES['file']['name'];
+        $file_tmp =  $_FILES['file']['tmp_name'];
+        $new_file_path= UPLOADPATH."\\".$file_name;
+        $data ['pathtofile'] = $new_file_path;
+        move_uploaded_file($file_tmp,$new_file_path);
+
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
+    public function import($certainfile=""){
+        echo "<pre>";
+        print_r($this->input->post("product"));
+        echo "</pre>";
+        $product_prop  = array(             
+            'is_secondhand'     =>  $this->input->post("product")[0]['is_secondhand'],
+            'barcode'           =>  $this->input->post("product")[0]['barcode'],
+            'product_class'     =>  $this->input->post("product")[0]['product_class_id'],
+            'officer_id'        =>  $this->session->userdata('u_id'),
+            'product_category'  =>  $this->input->post("product")[0]['product_category_id'],
+            'product_type'      =>  $this->input->post("product")[0]['product_type'],
+            'product_name'      =>  $this->input->post("product")[0]['product_name'],
+            'weight'            =>  $this->input->post("product")[0]['weight'],
+            'created_at'        =>  $this->global['today']
+        );
+
+        echo "<pre>";
+        print_r($product_prop);
+        echo "</pre>";
+        // $inserted_product = $this->m_product->insert($product_prop);
+        // $data['inserted'] = $inserted_product;
+        // header('Content-Type: application/json');       
+        // echo json_encode( $data );        
     }
 }
 ?>
