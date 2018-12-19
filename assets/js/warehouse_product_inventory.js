@@ -19,8 +19,20 @@ $(function(){
     $("#activate_product_btn").on("click",activateSelectedProduct);
     $("#import_products_btn").on("click", importProducts);
     $("#export_products_btn").on("click",exportProducts);
-
+    $("#printbarcode_product_btn").on("click", printProductBarcodes);
     $("#checkAll").on("change", toggleTickAllRows);
+
+    function printProductBarcodes(e){
+      e.preventDefault();
+
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      console.log(selectedBarcode," are ready to print.");
+
+    }
+
 
     function exportProducts(){
       var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        

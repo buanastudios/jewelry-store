@@ -21,6 +21,10 @@
                         <button id="deactivate_product_btn" class="btn btn-outline-danger btn-sm"><i class="fa fa-times"></i> Deactivate</button>
                         <button id="activate_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-check"></i> Activate</button>
                     </div>
+                    <div class="btn-group">
+                        <button id="printbarcode_product_btn" class="btn btn-outline-primary btn-sm"><i class="fa fa-barcode">&nbsp;</i>Print Barcode</button>
+                        <!-- <button id="activate_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-check"></i> Activate</button> -->
+                    </div>
                 </div>
             </div>
             <div class="row">

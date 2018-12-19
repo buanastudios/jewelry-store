@@ -25,7 +25,8 @@
 }
 
 .upload-response{
-  background-color:#ffc107;
+  /*background-color:#ffc107;*/
   border:white 1px solid;
   height:50px;
+  overflow:visible;
 }

@@ -182,6 +182,20 @@ class Product extends CI_Controller {
 		echo json_encode( $data );	
 	}
 
+    public function check($barcode=""){
+        if(strlen($barcode)==0){
+            $barcode = $this->input->post("barcode");
+        }
+
+        if(strlen($barcode)>0){
+            $data['data']  = $this->m_product->getReadyStock($barcode);        
+            header('Content-Type: application/json');       
+            echo json_encode( $data );  
+        }else{
+            echo "No barcode provided";
+        }
+    }
+
 	public function purchasedstock(){		
 		$data['data']  = $this->m_product->getPurchasedStock();        
 		header('Content-Type: application/json');    	
@@ -279,6 +293,10 @@ class Product extends CI_Controller {
         // $data['inserted'] = $inserted_product;
         // header('Content-Type: application/json');       
         // echo json_encode( $data );        
+    }
+
+    public function import_duplicateCheck($barcode){
+
     }
 }
 ?>

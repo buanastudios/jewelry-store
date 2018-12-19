@@ -42,11 +42,14 @@
                             </div>
                                 <!-- <p class="upload-flash-bypass">
                                 You are using the multi-file uploader. Problems? Try the <a href="http://satubuana.com/wp-admin/media-new.php?browser-uploader" target="_blank">browser uploader</a> instead.   </p> -->                            
-                                <div id="fileupload-wrapper" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 131px; left: 527px; width: 85px; height: 28px; overflow: hidden; z-index: 0;">
-                                    <form enctype="multipart/form-data" method="post" action="" class="media-upload-form type-form validate" id="file-form">
-                                    <input id="fileupload-input" name="fileimport" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="" />
-                                    </form>
-                                </div>
+                            <div id="fileupload-wrapper" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 131px; left: 527px; width: 85px; height: 28px; overflow: hidden; z-index: 0;">
+                                <form enctype="multipart/form-data" method="post" action="" class="media-upload-form type-form validate" id="file-form">
+                                <input id="fileupload-input" name="fileimport" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="" />
+                                </form>
+                            </div>
+
+                            <div style="height:30px;">&nbsp;</div>
+
                             <div id="upload-response" class="upload-response">
 
                             </div>

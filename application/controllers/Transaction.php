@@ -45,7 +45,7 @@ class Transaction extends CI_Controller {
     		$invoice_prop_detail  = array(
 	    		'transaction_head' => $headid,
 	    		'invoice_num' =>$invoice_num,	    		
-	    		'unit_price' =>$this->input->post('trx_amount'),
+	    		'price_per_unit' =>$this->input->post('trx_amount'),
 	    		'transaction_label' =>$this->input->post('trx_label_id')    		
     		);    		    		
 
@@ -92,7 +92,7 @@ class Transaction extends CI_Controller {
     		$invoice_prop_detail  = array(
 	    		'transaction_head' => $headid,
 	    		'invoice_num' =>$invoice_num,	    		
-	    		'unit_price' =>$this->input->post('trx_amount'),
+	    		'price_per_unit' =>$this->input->post('trx_amount'),
 	    		'transaction_label' =>$this->input->post('trx_label_id')    		
     		);
     		
@@ -182,7 +182,7 @@ class Transaction extends CI_Controller {
     		$invoice_prop_detail  = array(
 	    		'transaction_head' => $headid,
 	    		'invoice_num' =>$invoice_num,	    		
-	    		'unit_price' =>$this->input->post('trx_amount'),
+	    		'price_per_unit' =>$this->input->post('trx_amount'),
 	    		'transaction_label' =>$this->input->post('trx_label_id')    		
     		);
     		
@@ -289,7 +289,7 @@ class Transaction extends CI_Controller {
 	    		'invoice_num' =>$invoice['invoice_num'],
 	    		'product_id' =>$invoice['product_buyback_id'],
 	    		'barcode' => $invoice['product_buyback_barcode'],
-	    		'unit_price' =>$invoice['product_buyback_price'],
+	    		'price_per_unit' =>$invoice['product_buyback_price'],
 	    		'unit_weight' =>$invoice['product_buyback_weight']    		
     		);
 
