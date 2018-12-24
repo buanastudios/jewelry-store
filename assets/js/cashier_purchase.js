@@ -143,7 +143,7 @@ $(function(){
 	function generateInvoiceNum(){
 		var randomNumber = Math.floor(Math.random() * 1000);
 		var var2 = moment().format("MMM");		
-		var var3 = $("#userlogged").html().substring(0,3);
+		var var3 = $("#user_logged").html().substring(0,3);
 		var var4 = 40;
 		var var5 = "PURC";
 		var var6 = moment().format("YYYY");
@@ -168,7 +168,7 @@ $(function(){
 
 		var invoice_column 	= 	$("<div />")
 								.append($("<div />").html(theInvoice))
-								.append($("<div />").html("Kasir: "+$("#userlogged").html()));		
+								.append($("<div />").html("Kasir: "+$("#user_logged").html()));		
 		var product_column 	= 	$("<div />")
 								.append($("<div />").html(theProductName))
 								.append($("<div />").html(currentweight+ " gr"))

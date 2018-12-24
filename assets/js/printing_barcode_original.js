@@ -1,5 +1,5 @@
 $(function(){
-    var zplpath = baseurl + 'assets/zpl/';
+
     /// Authentication setup ///
     qz.security.setCertificatePromise(function(resolve, reject) {
         //Preferred method - from server
@@ -1222,7 +1222,7 @@ $(function(){
         var config = getUpdatedConfig();
 
         var printData = [
-            { type: 'raw', format: 'file', data: zplpath + file + '?'+Math.random() }
+            { type: 'raw', format: 'file', data: 'http://localhost/courses/derry/development/assets/zpl/' + file + '?'+Math.random() }
         ];
 
         console.log(printData);
@@ -1235,7 +1235,7 @@ $(function(){
         var config = getUpdatedConfig();
 
         var printData = [
-            { type: 'raw', format: 'file', data: zplpath + file + '?'+Math.random() }
+            { type: 'raw', format: 'file', data: 'http://localhost/courses/derry/development/assets/zpl/' + file + '?'+Math.random() }
         ];
 
         console.log(printData);
@@ -1246,111 +1246,29 @@ $(function(){
         var config = getUpdatedConfig();
 
         var printData = [
-            { type: 'raw', format: 'file', data: zplpath + file + '?'+Math.random() }
+            { type: 'raw', format: 'file', data: 'http://localhost/courses/derry/development/assets/zpl/' + file + '?'+Math.random() }
         ];
 
         console.log(printData);
         qz.print(config, printData).catch(displayError);
     }
 
-    var printtofile_path = baseurl + 'assets/zpl/newthing';
-    var url_prepare_barcode = baseurl + 'barcode/printtofile';
-    $("#printbarcode_product_btn").on("click", printProductBarcodes);
+	$("#print_barcodes").on("click", function(){		
+		startConnection();
+		findDefaultPrinter(true);
+		printFile();
+	})
 
-    function printFile_new(filename) {        
-       var file = zplpath + "newthing/"+ filename; 
-       console.log("printing " + file);
-        var config = getUpdatedConfig();
-
-        var printData = [
-            { type: 'raw', format: 'file', data: file + '?'+Math.random() }
-        ];
-
-        console.log(printData);
-        qz.print(config, printData).catch(displayError);
-    }
-
-    function gettingReadyStocks (barcode, o){
-      var stock_amount = 0;
-      var placeholder = $(o);
-      $.ajax({
-        type: "POST",
-        url: url_inventory_current_stock,
-        dataType: 'json',        
-        data: {
-          barcode: barcode
-        },
-        success : function(res){                    
-          stock_amount = res.data[0].stock_amount;
-          
-          if (parseInt(stock_amount) > 1){
-            stock_amount = stock_amount + " pcs";
-          }else{
-            stock_amount = stock_amount + " pc";
-          }
-
-          $(placeholder).html(stock_amount);
-        }
-      });          
-    }
-
-    function printProductBarcodes(e){
-      e.preventDefault();
-
-      startConnection();
-      findDefaultPrinter(true);
-
-      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
-        return $(this).parent().parent().attr('barcode');
-      }).get();
-
-      var linestoprint = 0;
-      
-      $.ajax({
-        type: "POST",
-        url: url_prepare_barcode,
-        dataType: 'json',        
-        async: false,
-        data: {
-          barcodes: selectedBarcode          
-        },
-        success : function(res){                                
-            linestoprint = parseInt(res.linestoprint);
-            console.log(selectedBarcode," are parsed and ready to print.");          
-        }
-      });       
-      
-      for (var i = 0; i < linestoprint; i++) {
-        var fileprint = "file."+i+".prn";        
-        printFile_new(fileprint);
-      } 
-      //   startConnection();
-      //   findDefaultPrinter(true);
-      // $.each(selectedBarcode, function (i,v){
-      //   printFile_1();
-      // });
-     
-    //  printFile();
-      
-
-    }
-
-	// $("#print_barcodes").on("click", function(){		
-	// 	startConnection();
-	// 	findDefaultPrinter(true);
-	// 	printFile();
-	// })
-
- //    $("#print_barcodes_1").on("click", function(){        
- //        startConnection();
- //        findDefaultPrinter(true);
- //        printFile_1();
- //    })
+    $("#print_barcodes_1").on("click", function(){        
+        startConnection();
+        findDefaultPrinter(true);
+        printFile_1();
+    })
 
 
-    // $('#checkAll').on("click", function () {    
+    $('#checkAll').on("click", function () {    
 
-    //     $('input:checkbox').prop('checked', this.checked);    
-    // });
+        $('input:checkbox').prop('checked', this.checked);    
+    });
 
 })

@@ -2,7 +2,7 @@
         <div id="content">
         	<div class="row">
 				<div class="col-md-6">
-					<h5>Inventory &raquo; Properties</h5>
+					<h5>Inventory &raquo; Product Properties</h5>
 				</div>
 			</div>        	        	
         	<div class="row">

@@ -2,7 +2,7 @@
         <div id="content">
         	<div class="row">
 				<div class="col-md-6">
-					<h3>Inventory</h3>
+					<h5>Inventory &raquo List</h5>
 				</div>
 			</div>        	        	
         	<div class="row">
@@ -17,13 +17,17 @@
                         <button id="import_products_btn" class="btn btn-outline-warning btn-sm"><i class="fa fa-file-import">&nbsp;</i>Import</button>
                         <button id="export_products_btn" class="btn btn-outline-warning btn-sm"><i class="fa fa-file-export">&nbsp;</i>Export</button>
                     </div>
-                    <div class="btn-group">
+                    <!-- <div class="btn-group">
                         <button id="deactivate_product_btn" class="btn btn-outline-danger btn-sm"><i class="fa fa-times"></i> Deactivate</button>
                         <button id="activate_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-check"></i> Activate</button>
-                    </div>
+                    </div> -->
                     <div class="btn-group">
                         <button id="printbarcode_product_btn" class="btn btn-outline-primary btn-sm"><i class="fa fa-barcode">&nbsp;</i>Print Barcode</button>
                         <!-- <button id="activate_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-check"></i> Activate</button> -->
+                    </div>
+
+                    <div class="btn-group">
+                        <button id="opname_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-search">&nbsp;</i>Opname</button>
                     </div>
                 </div>
             </div>
@@ -44,8 +48,8 @@
                             	<tr>
                                     <th  class="checkedbox"><input type="checkbox" id="checkAll" /></th>
                                     <th  class="product_barcode">Barcode</th>                        
-                                    <th  class="product_name">Barang</th>                                               
-                                    <th  class="product_stock">Stok</th>                            	
+                                    <th  class="product_name">Item</th>                                               
+                                    <th colspan="2" class="product_stock">Stock (in System)</th>                            	
                             	</tr>                            	
                             </thead>                            
                     </table>

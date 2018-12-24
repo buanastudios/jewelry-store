@@ -140,17 +140,20 @@ $(function(){
     function import_duplicateCheck(barcode, therow){
       console.log("checking "+ barcode);
       data = {barcode: barcode};
-      
+      isExist = 0;
+
       $.post( url_product_check, data ,function( res ) {
         // console.log("check result of "+ barcode);         
         if(res.data.length>0){
+          isExist = 1;
           rdisplay = $("<span />").html("Importing will overwrite");
           importNowButton = $("<button />").addClass("btn btn-sm btn-warning importnow").html("Import Now");          
         }else{
+          isExist = 0;
           rdisplay = $("<span />").html("Safe to import");
           importNowButton = $("<button />").addClass("btn btn-sm btn-success importnow").html("Import Now");
         }
-        // rcontent = rdisplay.append(importNowButton).hide().fadeIn("slow");
+        $(therow).attr('isexist',isExist);
         $(therow).append($("<td />").append(rdisplay.hide().fadeIn("slow")));
         $(therow).append($("<td />").append(importNowButton.hide().fadeIn("slow")));
         // console.log(res, res.data.length);
@@ -160,10 +163,24 @@ $(function(){
       
     }
 
-    function importSelected(e){
+    function searchInChecked(nameKey,myArray){
+        for (var i=0; i < myArray.length; i++) {
+          if (myArray[i].barcode === nameKey) {
+              // return myArray[i];
+              return myArray[i].isexist;
+          }
+        }
+    }
+
+    function importSelected_without_blob(e){
       e.preventDefault();
       var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
         return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      var selectedBarcodeIsExist = $(".checkbox input:checkbox:checked").map(function(){        
+        // return $(this).parent().parent().attr('barcode') + ' is ' + $(this).parent().parent().attr('isexist');
+        return {'barcode': $(this).parent().parent().attr('barcode'), 'isexist': $(this).parent().parent().attr('isexist')};
       }).get();
 
       var source = $("#thefile","#upload-response").text();
@@ -172,11 +189,21 @@ $(function(){
           var filtered = [];
           // console.log(selectedBarcode[0]);
           // var searchBarcode = selectedBarcode[0];
-          
-          $.each(res.data, function(i, v) {
+          console.log(selectedBarcodeIsExist);
+
+          // var xl = searchInChecked('CN-010200002',selectedBarcodeIsExist);
+          // console.log(xl);
+
+          $.each(res.data, function(i, v) {              
+              console.log(v);
               $.each(selectedBarcode, function (iB,vB){
+                
+                // console.log(v[0].barcode, searchInChecked(v[0].barcode,selectedBarcodeIsExist));
+                $.extend(v[0], {isexist:searchInChecked(v[0].barcode,selectedBarcodeIsExist)});
+                // console.log(v[0]);
+
                 if (v[0].barcode==vB) {                  
-                  filtered.push(v);
+                  filtered.push(v[0]);                  
                   return;
                 } 
               });
@@ -199,7 +226,49 @@ $(function(){
             },        
             success: function (res){
               console.log(res);
-              window.location.href = url_product_inventory;
+              //window.location.href = url_product_inventory;
+            }
+          }); 
+      });
+    }
+
+    function importSelected(e){
+      e.preventDefault();
+      var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
+        return $(this).parent().parent().attr('barcode');
+      }).get();
+
+      var selectedBarcodeIsExist = $(".checkbox input:checkbox:checked").map(function(){                
+        return {'barcode': $(this).parent().parent().attr('barcode'), 'isexist': $(this).parent().parent().attr('isexist')};
+      }).get();
+
+      var source = $("#thefile","#upload-response").text();
+      
+      $.getJSON(source, function(res){
+          var filtered = [];      
+          
+          $.each(res.data, function(i, v) {              
+              $.extend(v, {isexist:searchInChecked(v.barcode,selectedBarcodeIsExist)});
+              $.each(selectedBarcode, function (iB,vB){              
+                if (v.barcode==vB) {                  
+                    filtered.push(v);                  
+                    return;
+                } 
+              });
+          });
+          
+          console.log(filtered);
+
+          $.ajax({
+            url: url_insert_product,
+            type: "POST",
+            async: false,
+            data: {
+              product: filtered
+            },        
+            success: function (res){
+              console.log(res);
+              //window.location.href = url_product_inventory;
             }
           }); 
       });

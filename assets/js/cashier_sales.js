@@ -324,7 +324,10 @@ $(function(){
 			url: url_save,
 			dataType: 'JSON',			
 			data: {	invoice: invoice_prop },
-			success: displaySavingResponse
+			success: displaySavingResponse,
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
 		});
 	}
 
@@ -333,7 +336,9 @@ $(function(){
 		console.log(res)         
         prepare_invoice_print();
 		$("#print_invoice_to_paper").attr("action", url_print_invoice);
-		$("#print_invoice_to_paper").submit();        
+		$("#print_invoice_to_paper").submit();   
+
+		getNewInvoice();
 	}
 	
 	function getCurrentSession(){		

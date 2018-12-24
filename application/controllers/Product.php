@@ -9,7 +9,7 @@ class Product extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-        $this->load->model(array('m_product','m_inventory','m_product_class','m_product_category'));
+        $this->load->model(array('m_product','m_inventory','m_inventory_stock','m_product_class','m_product_category'));
 
         $m = new \Moment\Moment("now","Asia/Jakarta");
         $this->global['moment'] = $m;
@@ -92,6 +92,71 @@ class Product extends CI_Controller {
         return $o;
     }
 
+    public function multiadd($data=""){
+
+        $data_processing = ($data <>'') ? $data : $this->input->post('product');
+
+        $product = array (  'is_refurbished' => '',  
+                            'barcode' => '', 
+                            'class' => '',                          
+                            'category' => '',
+                            'image' => '',
+                            'name' =>'',
+                            'weight' => ''
+                            );
+
+        foreach ($data_processing as $data_index => $data_value){
+        
+            $isExisted = ($data_value['isexist']) ? $data_value['isexist'] : '0';
+
+            $product_prop  = array(             
+                'is_secondhand' => $data_value['is_secondhand_id'],            
+                'barcode' => $data_value['barcode'],
+                'product_class' =>$data_value['product_class_id'],
+                'officer_id' => $this->session->userdata('u_id'),
+                'product_category' =>$data_value['product_category_id'],                                              
+                'product_img_type' => $data_value['product_img_type'],                                                              
+                'product_img_blob' =>base64_decode($data_value['product_img_blob']),
+                'product_name' =>$data_value['product_name'],
+                'weight' =>$data_value['weight'],
+                'row_imported_at' => $this->global['today']
+            );
+                    
+            if ($isExisted =="1"){
+                // echo $product_prop['barcode']." is going to be updated";
+                $product_prop['updated_at'] = $this->global['today'];
+                $data['updated'][$data_index] = $this->m_product->update_per_barcode($data_value['barcode'],$product_prop);
+                // $data['processed'][$data_index] = $product_prop;
+            }else{
+                // echo $product_prop['barcode']." is going to be inserted";
+                $product_prop['created_at'] = $this->global['today'];
+                $data['inserted'][$data_index] = $this->m_product->insert($product_prop);
+                // $data['processed'][$data_index] = $product_prop;
+            };            
+
+        }
+
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
+    public function update($data=""){
+
+    }
+        
+    public function changeProductStatus(){
+        $product_prop  = array(                         
+            'barcode' => $this->input->post('barcode'),
+            'status' => 0,
+            'updated_at'=>$this->global['today']
+        );
+
+        $product_changes = $this->m_product->update_per_barcode($product_prop['barcode'],$product_prop);
+        $data['changes'] = $product_changes; 
+        header('Content-Type: application/json');       
+        echo json_encode( $data ); 
+    }
+
     public function add($data=''){    	
         $savedfile = $this->xv();                
     	$data_processing = ($data <>'') ? $data : $this->input->post('product');
@@ -154,13 +219,31 @@ class Product extends CI_Controller {
         echo json_encode( $data );  
     }
 
+    function addStock(){
+        $product_prop  = array(             
+            'inventory_officer_id' => $this->session->userdata('u_id'),
+            'barcode' => $this->input->post('barcode'),
+            'stock_added' => $this->input->post('stock'),
+            'descriptions' => $this->input->post('descriptions'),
+            'input_date'=>$this->global['today'],
+            'created_at'=>$this->global['today']
+        );
+
+        // $add_product_stock = $this->m_inventory_stock->update_per_barcode($product_prop['barcode'],$product_prop);
+        $add_product_stock = $this->m_inventory_stock->insert($product_prop);
+        $data['inserted'] = $add_product_stock;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
     function opname(){
 
-
         $product_prop  = array(	    		
-            'officer_id'=>1,
+            'inventory_officer_id' => $this->session->userdata('u_id'),
     		'barcode' => $this->input->post('barcode'),
-    		'stock_opname' => $this->input->post('opnamed_stock')
+    		'stock_opname' => $this->input->post('opnamed_stock'),
+            'input_opname_date' => $this->global['today'],
+            'created_at'=>$this->global['today']
 		);
 
 		$opname_product = $this->m_inventory->insert($product_prop);
@@ -169,6 +252,19 @@ class Product extends CI_Controller {
 		echo json_encode( $data );	
     }
 
+
+
+    public function currentStock($b=''){
+        if($b==''){
+            $barcode = $this->input->post('barcode');            
+        }else{
+            $barcode= $b;
+        }
+
+        $data['data']  = $this->m_product->getReadyStock($barcode);        
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
 
 	public function readystock($b=''){		
         if($b==''){
@@ -227,14 +323,14 @@ class Product extends CI_Controller {
         echo json_encode( $data );  
     }
 
-    public function prepareExport($b=""){
+    public function prepareExport_without_blob($b=""){
         //IF ARRAY OF MANY THEN ITERATE
         //IF ARRAY OF ONE THEN ITERATE
         //IF NOT AN ARRAY THEN PROCESS
         //
         $barcodes = $this->input->post('preparedForExport'); 
         $data['data'] = [];
-        foreach($barcodes as $key=>$barcode){
+        foreach($barcodes as $key=>$barcode){            
             array_push($data['data'],$this->m_product->getBasedOnBarcode($barcode));        
         }
 
@@ -250,6 +346,29 @@ class Product extends CI_Controller {
         $newJsonString = json_encode( $data );  
         file_put_contents($preparedFilepath, $newJsonString);
         // write_file('D:\pool\exportJson.json', $newJsonString, 'r+');
+        $data['status']  = "Exported as ".$preparedFilepath;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
+    public function prepareExport($b=""){        
+        $barcodes = $this->input->post('preparedForExport'); 
+        $data['data'] = [];
+        foreach($barcodes as $key=>$barcode){            
+            $x = $this->m_product->getBasedOnBarcode($barcode)[0];
+            $x->product_img_blob =base64_encode($x->product_img_blob);
+            array_push($data['data'],$x);        
+        }
+        
+        $data['tobeExported'] = $barcodes;
+        
+        $preparedFilename   = mt_rand().$this->global['moment']->format('mdYhhmmss');
+        $preparedFileext    = '.json';
+        $preparedFilepath   = DOWNLOADPATH."\\".$preparedFilename.$preparedFileext;
+        
+        $newJsonString = json_encode( $data );  
+        file_put_contents($preparedFilepath, $newJsonString);
+        
         $data['status']  = "Exported as ".$preparedFilepath;
         header('Content-Type: application/json');       
         echo json_encode( $data );  

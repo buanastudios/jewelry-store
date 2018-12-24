@@ -5,6 +5,14 @@ $(function(){
 	var url_product_category = baseurl+'product/categories';	
 	var url_product_class = baseurl+'product/classes';	
 	var url_product_inventory = baseurl+'warehouse/product/inventory';	
+	
+
+	$("#inventory_products_btn").on("click", inventoryProducts);        
+
+	function inventoryProducts(e){
+      e.preventDefault();
+      window.location.href = url_product_inventory;
+    }
 
 	var product_category = [];
 	var product_class = [];
@@ -124,7 +132,10 @@ $(function(){
 				success: function (res){
 					console.log(res);
 					window.location.href = url_product_inventory;
-				}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
 			});	
 		}else{
 			alert("Berat Produk belum diisi");

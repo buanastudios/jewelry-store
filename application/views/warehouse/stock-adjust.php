@@ -1,8 +1,8 @@
         <!-- Page Content Holder -->
         <div id="content">
         	<div class="row">
-				<div class="col-md-6">
-					<h3> Stock | Adjustment </h3>
+				<div class="col-md-6">					
+                    <h5>Inventory &raquo; Stock Adjustment</h5>
 				</div>
 			</div>        	        	
         	<div class="row">

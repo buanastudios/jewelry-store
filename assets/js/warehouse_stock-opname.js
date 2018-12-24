@@ -2,12 +2,15 @@ $(function(){
 	var url_inventory = baseurl + 'product/itemList';   		
   var url_product   = baseurl + 'product/readystock';
   var url_opname    = baseurl + 'product/opname';
+  var url_product_image = baseurl + 'product/itemImage';
+
 	var cur_postdate = Date("Y-M-d"); 
 	var $tablen = $("#inventory");
 
   $("#barcode_search").on("click", getProductFromBarcode);
   $("#displayAllTable").on("click", getTableProducts);  
-  $("#single_opname").on("click", UpdateSingleOpname);
+  $("#single_opname").on("click", UpdateSingleOpname);  
+  $("#cleardateparam").on("click", clear_dateparam);
 
   function UpdateSingleOpname(o){
     o.preventDefault();
@@ -43,8 +46,11 @@ $(function(){
   }
 
   function getTableProducts(o){
+    console.log("initiate function: getTableProducts");
     o.preventDefault();
+    $("#barcode_search_result").hide();
     $("#inventory_list").fadeToggle('slow');
+    console.log("end of function: getTableProducts");
   }
 
   function getProductFromBarcode(e){
@@ -71,19 +77,25 @@ $(function(){
   }
 
   function refresh_the_barcode_search(res){
-    console.log('result is: ');
-    console.log(res.data.length);
-    
-    console.log(res.data[0].product_name);
-    console.log('end of ajax request');
-    
     if(parseInt(res.data.length)>0){
       $("#barcode_search_result").fadeToggle('slow');
+
+      console.log(res.data[0].product_name);
+      console.log('end of ajax request');
+
+      $(".product_name","#barcode_search_result").html(res.data[0].product_name);
+      $(".product_class","#barcode_search_result").html(res.data[0].product_class);
+      $(".product_weight","#barcode_search_result").html(res.data[0].weight + " gram(s)");
+      $(".product_image","#barcode_search_result").attr('src',url_product_image+"/"+res.data[0].barcode);
+
     }else{
       $("#barcode_search_result").hide();
       console.log("show notif not found barcode");
     }
 
+    console.log('result is: ');
+    console.log(res.data.length);      
+  
   }
 
 	function getProductInventory(){			
@@ -112,7 +124,8 @@ $(function(){
         var jenis  = $("<div />").append($("<div />").addClass("badge").html(v.product_category)).append($("<div />").addClass("badge").html(v.product_class));
         var weight = $("<div />").addClass("badge").html(v.weight + " gram(s)");
         var product = $("<div />").append($("<div />").html(v.product_name)).append(jenis).append(weight);
-        var product_image = $("<div />").css("float","left").css("width","50%").append($("<img />").css("width","100%").attr("src","http://localhost/courses/derry/jewelry-store/product/itemImage/CN-010297799"));
+    
+        var product_image = $("<div />").css("float","left").css("width","50%").append($("<img />").css("width","100%").attr("src",url_product_image+"/"+v.barcode));
         var product_wrapper = $("<div />").append($("<div />").append(product).css("float","right").css("width","40%").css("margin-left","10%"))
                                           .append(product_image);
 
@@ -149,7 +162,22 @@ $(function(){
 
     function init(){    	
   		getProductInventory();
+      build_picker_day($('#period'));
   	}
+
+    function clear_dateparam(){
+      $('#period').val("");
+    }
   	
+    function build_picker_day(o){
+      $(o).datetimepicker('remove');
+      $(o).datetimepicker({
+            format: "dd MM yyyy",
+            autoclose: true,
+            todayBtn: true,
+            minView: 'year'
+        });
+    }
+
   	init();
 })	

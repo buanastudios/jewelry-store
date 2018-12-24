@@ -88,6 +88,13 @@
     <script src="<?php echo base_url('assets/js/sidebar.js').'?rand='.mt_rand();?>" type="text/javascript"></script>
     <!-- Our Custom JS -->
     <script src="<?php echo base_url('assets/js/').$js.'?rand='.mt_rand();?>" crossorigin="anonymous"></script>    
+    <?php if ($js == "warehouse_product_inventory.js"){ ?>    
+    <!--PRINTING REQUIREMENT-->    
+    <script src="<?php echo base_url('vendor/qz.io/dependencies/rsvp-3.1.0.min.js').'?rand='.mt_rand(); ?>" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url('vendor/qz.io/dependencies/sha-256.min.js').'?rand='.mt_rand(); ?>" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url('vendor/qz.io/qz-tray.js').'?rand='.mt_rand(); ?>" crossorigin="anonymous"></script>    
+    <script src="<?php echo base_url('assets/js/printing_barcode.js').'?rand='.mt_rand(); ?>" crossorigin="anonymous"></script>    
+    <?php } ?>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
         <div id="content">
         	<div class="row">
 				<div class="col-md-6">
-					<h3> Product &raquo; Add</h3>
+					<h5>Inventory &raquo; Add Product</h5>
 				</div>
 			</div>
         	<div class="row">
@@ -12,7 +12,7 @@
 					    	<div class="col">
 								<div class="btn btn-group">
 					    			<button class="btn btn-outline-success btn-md"><i class="fa fa-file">&nbsp;</i></button>
-					    			<button class="btn btn-outline-success btn-md"><i class="fa fa-list">&nbsp;</i></button>
+				    				<button id="inventory_products_btn" class="btn btn-outline-warning btn-sm"><i class="fa fa-list">&nbsp;</i>Inventory</button>
 					    		</div>
 					    	</div>						    	
 						</div>

@@ -20,9 +20,15 @@ $(function(){
     $("#add_category_btn").on("click", add_category);
     $("#add_class_btn").on("click", add_class);
     $("#remove_property_btn").on("click",remove_property);
-    
+
     $("#checkAll").on("change", toggleTickAllRows);
 
+
+    function remove_property(e){
+      e.preventDefault();
+
+    }
+    
     function list_category(){
       var selectedBarcode = $(".checkbox input:checkbox:checked").map(function(){        
         return $(this).parent().parent().attr('barcode');
