@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Product extends CI_Controller {
+class Inventory extends CI_Controller {
 
 	protected $global = array();
     protected $imageFolder ="x/";
@@ -18,6 +18,94 @@ class Product extends CI_Controller {
         $this->global['today_time'] = $m->format("H:i:s");
     }	
 
+    public function index(){
+        echo "inventory";
+    }
+    //ORIGINAL INVENTORY
+    //
+    
+    function adjustment(){
+
+        $product_prop  = array(             
+            'inventory_officer_id' => $this->session->userdata('u_id'),
+            'opname_date' => $this->input->post('opname_date'),
+            'barcode' => $this->input->post('barcode'),
+            'stock_adjustment' => $this->input->post('adjusted_stock'),
+            'adjustment_description' => $this->input->post('adjusted_description'),
+            'input_adjustment_date' => $this->global['today'],
+            'created_at'=>$this->global['today']
+        );
+
+        $opname_product = $this->m_inventory_stock->adjust_stock($product_prop['barcode'],$product_prop);
+        $data['inserted'] = $opname_product;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
+    function opname(){
+
+        $product_prop  = array(             
+            'inventory_officer_id' => $this->session->userdata('u_id'),
+            'opname_date' => $this->input->post('opname_date'),
+            'barcode' => $this->input->post('barcode'),
+            'stock_opname' => $this->input->post('opnamed_stock'),
+            'input_opname_date' => $this->global['today'],
+            'created_at'=>$this->global['today']
+        );
+
+        $opname_product = $this->m_inventory->insert($product_prop);
+        $data['inserted'] = $opname_product;
+        header('Content-Type: application/json');       
+        echo json_encode( $data );  
+    }
+
+    public function getAdjustmentList($opname_date=''){
+        $data['data'] = "inventory opname list on". $this->input->post('opname_date');   
+        $opname_date = $this->input->post('opname_date');
+        $data['data']  = $this->m_inventory_stock->getWillBeAdjustList($opname_date);
+
+        header('Content-Type: application/json');       
+        echo json_encode( $data['data'] );          
+    }
+
+    public function getAdjustmentListPerBarcode(){
+        
+        $barcode = $this->input->post('barcode');
+        $opname_date = $this->input->post('opname_date');
+        $data['process'] = "inventory adjustment list of ". $barcode . " on ". $opname_date;
+        $data['parameters']['barcode'] = $barcode;
+        $data['parameters']['opname_date'] = $opname_date;
+         $data['data']  = $this->m_inventory_stock->getAdjustmentListPerBarcode($opname_date,$barcode);
+
+        header('Content-Type: application/json');       
+        echo json_encode( $data );        
+    }
+    public function getAdjustmentSingleBarcode($opname_date='',$barcode=''){
+        // echo "inventory opname list on". $opname_date;   
+        $barcode = $this->input->post('barcode');
+        $opname_date = $this->input->post('opname_date');
+        $data['data']  = $this->m_inventory_stock->getWillBeAdjustSingle($opname_date,$barcode);
+        header('Content-Type: application/json');       
+        echo json_encode( $data['data'] );          
+    }
+
+    public function getOpnameList($opname_date=''){
+        // echo "inventory opname list on". $opname_date;   
+        $opname_date = $this->input->post('opname_date');
+        $data['data']  = $this->m_inventory_stock->getWillBeOpnameList($opname_date);
+        header('Content-Type: application/json');       
+        echo json_encode( $data['data'] );          
+    }
+
+    public function getOpnameSingleBarcode($opname_date='',$barcode=''){
+        // echo "inventory opname list on". $opname_date;   
+        $barcode = $this->input->post('barcode');
+        $opname_date = $this->input->post('opname_date');
+        $data['data']  = $this->m_inventory_stock->getWillBeOpnameSingle($opname_date,$barcode);
+        header('Content-Type: application/json');       
+        echo json_encode( $data['data'] );          
+    }
+    //FROM PRODUCT CLAS
     private function getNameWithPath(){
         $name = $this->imageFolder.date('YmdHis').".jpg";
         return $name;
@@ -234,23 +322,6 @@ class Product extends CI_Controller {
         $data['inserted'] = $add_product_stock;
         header('Content-Type: application/json');       
         echo json_encode( $data );  
-    }
-
-    function opname(){
-
-        $product_prop  = array(	    		
-            'inventory_officer_id' => $this->session->userdata('u_id'),
-            'opname_date' => $this->input->post('opname_date'),
-    		'barcode' => $this->input->post('barcode'),
-    		'stock_opname' => $this->input->post('opnamed_stock'),
-            'input_opname_date' => $this->global['today'],
-            'created_at'=>$this->global['today']
-		);
-
-		$opname_product = $this->m_inventory->insert($product_prop);
-		$data['inserted'] = $opname_product;
-		header('Content-Type: application/json');    	
-		echo json_encode( $data );	
     }
 
 

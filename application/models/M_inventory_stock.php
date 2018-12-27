@@ -39,42 +39,67 @@ class m_inventory_stock extends CI_Model {
 		
         return $data;	
 	}
-    public function getProductImage($barcode){
-        $this->db->select("product_img_blob");
-        $this->db->where("barcode", $barcode);
-        $query = $this->db->get($this->tablename);        
-        $data = $query->row();
-        return $query->num_rows() === 1 ? $data : false;         
+
+    public function adjust_stock($barcode, $info){        
+        $this->db->insert('inventory_adjustment', $info);           
+        return $this->db->insert_id();
     }
-    public function getPurchasedStock(){                
-        $query = $this->db->get($this->view_purchasedstock);        
-        $data = $query->result();
+
+    public function getAdjustmentListPerBarcode($opname_date,$barcode){
+        $this->db->where("opname_date", $opname_date);
+        $this->db->where("barcode", $barcode);
+        $this->db->from('inventory_adjustment');
+        $this->db->select("*");                
+        $query = $this->db->get();          
+        $data['total'] = $query->num_rows();           
+        $data['data'] = $query->result();
         return $data;
     }
 
-    public function getReadyStock($barcode){        
-        $this->db->where("barcode", $barcode);
-        $query = $this->db->get($this->view_readystock);        
-        $data = $query->result();
+    public function getWillBeAdjustSingle($mentioned_date,$barcode){                        
+        $this->db->select("*");                
+        $this->db->where("opname_date", $mentioned_date);
+        $this->db->from('vw_inventory_stock_opname_will_be_adjust');
+        $query = $this->db->get();          
+        $data['total'] = $query->num_rows();           
+        $data['data'] = $query->result();
+
+        return $data;
+    }
+
+    public function getWillBeAdjustList($mentioned_date){                        
+        $this->db->where("opname_date", $mentioned_date);
+        $this->db->from('vw_inventory_stock_opname_will_be_adjust');      
+        $query = $this->db->get();          
+        $data['total'] = $query->num_rows();           
+        $data['data'] = $query->result();
+        $data['param'] = $mentioned_date;
         return $data;
     }	
 
-    public function getItemList_(){
-        $this->db->select("vw_products_readystock.barcode, vw_products_readystock.product_name, vw_products_readystock.weight, vw_products_readystock.is_secondhand,vw_products_readystock.product_class, vw_products_readystock.product_category");
+    public function getWillBeOpnameSingle($mentioned_date,$barcode){                
+        $subquery = "SELECT barcode FROM vw_inventory_stock_opname WHERE opname_date='".$mentioned_date."'";
+        $this->db->select("*");                
+        $this->db->where("barcode = '".$barcode."' AND barcode NOT IN($subquery)");
         $this->db->from($this->view_readystock);        
-        $this->db->join('inventory_opname','inventory_opname.barcode=vw_products_readystock.barcode','Left');
-        $query = $this->db->get();        
-        $data = $query->result();
+        $query = $this->db->get();  
+        $data['subquery'] = $subquery;
+        $data['total'] = $query->num_rows();           
+        $data['data'] = $query->result();
+
         return $data;
     }
 
-    public function getItemList_OK(){
-        $this->db->select("vw_products_readystock.barcode, vw_products_readystock.product_name, vw_products_readystock.weight, vw_products_readystock.is_secondhand,vw_products_readystock.product_class, vw_products_readystock.product_category, vw_products_readystock.status");
+    public function getWillBeOpnameList($mentioned_date){                
+        $subquery = "SELECT barcode FROM vw_inventory_stock_opname WHERE opname_date='".$mentioned_date."'";
+        $this->db->select("*");                
+        $this->db->where("barcode NOT IN($subquery)");
         $this->db->from($this->view_readystock);        
-        $this->db->join('inventory_opname','inventory_opname.barcode=vw_products_readystock.barcode','Left');
-        $this->db->where('inventory_opname.barcode is NULL');
-        $query = $this->db->get();        
-        $data = $query->result();
+        $query = $this->db->get();  
+        $data['subquery'] = $subquery;
+        $data['total'] = $query->num_rows();           
+        $data['data'] = $query->result();
+
         return $data;
     }
 

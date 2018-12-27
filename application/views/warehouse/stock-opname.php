@@ -34,19 +34,26 @@
         		</div>
         	</div> -->
         	<div class="form-row text-center align-items-center">                
-                <div class="col-12">
+                <div class="col-6">
                     <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                             <!-- <span class="input-group-text"><i class="fa fa-calendar"></i></span>                 -->
                             <span class="input-group-text id="cleardateparam" ><i class="fa fa-times"></i></span>
                         </div>
-                        <input type="text" id="period" class="daterange form-control" aria-label="Date Periode" readonly placeholder="Periode" />
-                        <input id="barcode_scanned" type="text" class="form-control" placeholder="Barcode" aria-label="Barcode" aria-describedby="barcode_search" />
+                        <input type="text" id="period" class="daterange form-control" aria-label="Date Periode" readonly placeholder="Periode Opname" />
+                        <input type="hidden" id="periodformatted" class="daterange form-control" aria-label="Date Periode" readonly placeholder="Periode" />
+                        <div class="input-group-append">                        
+                            <button id="displayAllTable" class="btn btn-outline-success" type="button" ><i class="fa fa-list">&nbsp;</i></button>
+                        </div>
+                        <input id="barcode_scanned" type="text" class="form-control" placeholder="Single Barcode" aria-label="Barcode" aria-describedby="barcode_search" />
                         <div class="input-group-append">
                             <button id="barcode_search" class="btn btn-outline-success" type="button"><i class="fa fa-search"></i></button>
-                            <button id="displayAllTable" class="btn btn-secondary" type="button" >See all products&nbsp;<i class="fa fa-eye"></i></button>
-                        </div>
-                        <input type="text" id="opname_status" class="form-control" aria-label="Opname Status" readonly placeholder="Status" />
+                        </div>                        
+                    </div>                
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm">                        
+                        <input type="text" id="opname_status" class="form-control status_notif" aria-label="Opname Status" readonly placeholder="Status" />
                     </div>                
                 </div>              
             </div>
@@ -64,7 +71,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    &nbsp;
+                    <h6>&nbsp;</h6>
                 </div>
             </div>
             

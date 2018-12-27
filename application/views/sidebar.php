@@ -102,21 +102,7 @@
                             <a href="#warehouseProductMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-database">&nbsp;</i>&nbsp;Product</a>
                                 <ul class="collapse list-unstyled" id="warehouseProductMenu">
                                     <li>
-                                        <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Inventory</a>
-                                    </li>
-                                    <li>
                                         <a href="<?php echo base_url('warehouse/product/add'); ?>"><i class="fas fa-plus-square">&nbsp;</i>&nbsp;Add Product</a>
-                                    </li>
-                                    <li>                    
-                                        <a href="#warehouseProductStockMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-archive">&nbsp;</i>&nbsp;Stock</a>
-                                        <ul class="collapse list-unstyled" id="warehouseProductStockMenu">
-                                            <li>
-                                                <a href="<?php echo base_url('warehouse/stock/adjust'); ?>"><i class="fas fa-cog">&nbsp;</i>&nbsp;Adjust Stock</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?php echo base_url('warehouse/stock/opname'); ?>"><i class="fas fa-archive">&nbsp;</i>&nbsp;Opname</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <a href="<?php echo base_url('warehouse/product/properties'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Properties</a>
@@ -124,9 +110,25 @@
                                     <li>
                                         <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Class</a>
                                     </li>
+                                    
+                                    
+                                    
                                 </ul>                                        
                         </li> 
-                        
+                        <li>                    
+                            <a href="#warehouseProductStockMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-archive">&nbsp;</i>&nbsp;Inventory</a>
+                            <ul class="collapse list-unstyled" id="warehouseProductStockMenu">
+                                <li>
+                                    <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-list-alt">&nbsp;</i>&nbsp;In System</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('warehouse/stock/opname'); ?>"><i class="fas fa-list">&nbsp;</i>&nbsp;Opname</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('warehouse/stock/adjust'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Adjustment</a>
+                                </li>
+                            </ul>
+                        </li>
                         
 <!--                         <li>                    
                             <a href="#cleanerMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-tint">&nbsp;</i>&nbsp;Cleaner</a>
