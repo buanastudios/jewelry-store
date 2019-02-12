@@ -1,7 +1,11 @@
 $(function(){	
 	var url_insert = baseurl+'employee/add';
+	var url_staff_list = baseurl + 'management/employment/list';
+	var url_staff_salary = baseurl + 'management/employment/salary';
 
-	$("#newemployee").on("click", insert_newemployee);
+	$("#newemployee").on("click", insert_newemployee);		
+	$("#employee_list_btn").on("click", employee_list);
+	$("#employee_salary_btn").on("click", employee_salary);
 
 	function insert_newemployee(e){
 		e.preventDefault();
@@ -39,6 +43,17 @@ $(function(){
         });
     }
 
+	function employee_list(e){
+		e.preventDefault();
+		console.log('daftar karyawan');
+		window.location.href = url_staff_list;
+	}
+
+	function employee_salary(e){
+		e.preventDefault();
+		console.log('salary karyawan');
+		window.location.href = url_staff_salary;
+	}
 
 	init();
 });

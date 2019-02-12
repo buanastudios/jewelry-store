@@ -39,6 +39,7 @@ class Login extends CI_Controller {
         echo "Email has been sent";
       };
     }
+
     function proses2() {
         $this->form_validation->set_rules('predefined_username', 'predefined_username', 'required|trim');        
 
@@ -50,9 +51,10 @@ class Login extends CI_Controller {
             $psw = $this->input->post('password');
             $u = ($usr);
             $p = md5(($psw));
-            $p = ($psw);            
+            
+            $p = ($psw);  //naked password
             $cek = $this->m_user->cek($u, $p);            
-            //print_r($cek);
+            print_r($cek);
 
             if ($cek->num_rows() > 0) {
                 echo "login berhasil, buat session";

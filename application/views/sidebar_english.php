@@ -4,7 +4,7 @@
                 <h3>Toko Emas DOLLAR©<!-- <small>Jewelry Store</small> --></h3>
             </div>
             <ul class="list-unstyled components">
-                <p>Selamat Bekerja, 
+                <p>Happy working, 
                     <select id="userlogged" width="100%" style="width: 100%">
 
                     </select>                    
@@ -16,13 +16,13 @@
                       };
                 ?>
                 <p>
-                    <span id="userbadge" class="<?php echo $c; ?>">
+                    <span id="userbadge"class="<?php echo $c; ?>">
                         <small><i class="fa fa-id-badge">&nbsp;</i></small>
                         <span id="user_logged"><?php echo $this->session->userdata('nama'); ?></span>                                   
                     </span>
                     <br/>
                     <br/>
-                    <small><a href="<?php echo base_url('login/logout'); ?>">Keluar</a>&nbsp;<i class="fa fa-sign-out-alt">&nbsp;</i></small>
+                    <small><a href="<?php echo base_url('login/logout'); ?>">Sign Out</a>&nbsp;<i class="fa fa-sign-out-alt">&nbsp;</i></small>
                 </p>
                 <?php if ($usertype=='SysAdmin'){ ?>
                 <li >
@@ -76,44 +76,41 @@
                 <?php } ?>
                 <?php if($usertype=="Employee" || $usertype=='Owner' || $usertype=='SysAdmin'){ ?>
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-random">&nbsp;</i>&nbsp;Transaksi</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-random">&nbsp;</i>&nbsp;Front Lines</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="<?php echo base_url('cashier/sales'); ?>"><i class="fas fa-outdent">&nbsp;</i>&nbsp;Penjualan</a>
+                            <a href="<?php echo base_url('cashier/sales'); ?>"><i class="fas fa-outdent">&nbsp;</i>&nbsp;Sale</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('cashier/purchase'); ?>"><i class="fas fa-indent">&nbsp;</i>&nbsp;Pembelian</a>
+                            <a href="<?php echo base_url('cashier/purchase'); ?>"><i class="fas fa-indent">&nbsp;</i>&nbsp;Purchase</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('cashier/income'); ?>"><i class="fas fa-money-bill">&nbsp;</i>&nbsp;Pendapatan Lainnya</a>
+                            <a href="<?php echo base_url('cashier/income'); ?>"><i class="fas fa-money-bill">&nbsp;</i>&nbsp;Other Income</a>
                         </li>                        
                         <li>
-                            <a href="<?php echo base_url('cashier/expense'); ?>"><i class="fas fa-money-bill">&nbsp;</i>&nbsp;Pengeluaran Lainnya</a>
+                            <a href="<?php echo base_url('cashier/expense'); ?>"><i class="fas fa-money-bill">&nbsp;</i>&nbsp;Other Expense</a>
                         </li>                        
                         <li>
-                            <a href="<?php echo base_url('cashier/history'); ?>"><i class="fas fa-history">&nbsp;</i>&nbsp;Histori</a>
+                            <a href="<?php echo base_url('cashier/history'); ?>"><i class="fas fa-history">&nbsp;</i>&nbsp;History</a>
                         </li>             
                     </ul>
                 </li>                
                 <li>                    
-                    <a href="#warehouseMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-warehouse">&nbsp;</i>&nbsp;Gudang</a>
+                    <a href="#warehouseMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-warehouse">&nbsp;</i>&nbsp;Warehouse</a>
                     <ul class="collapse list-unstyled" id="warehouseMenu">                                                                       
                         <li>
-                            <a href="<?php echo base_url('management/report/inventory'); ?>"><i class="fas fa-chart-pie">&nbsp;</i>&nbsp;Laporan Inventori</a>
-                        </li>
-                        <li>
-                            <a href="#warehouseProductMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-database">&nbsp;</i>&nbsp;Produk</a>
+                            <a href="#warehouseProductMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-database">&nbsp;</i>&nbsp;Product</a>
                                 <ul class="collapse list-unstyled" id="warehouseProductMenu">
                                     <li>
-                                        <a href="<?php echo base_url('warehouse/product/add'); ?>"><i class="fas fa-plus-square">&nbsp;</i>&nbsp;Tambah Produk</a>
+                                        <a href="<?php echo base_url('warehouse/product/add'); ?>"><i class="fas fa-plus-square">&nbsp;</i>&nbsp;Add Product</a>
                                     </li>
-                                    <!-- <li>
+                                    <li>
                                         <a href="<?php echo base_url('warehouse/product/properties'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Properties</a>
                                     </li>
                                     <li>
                                         <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Class</a>
                                     </li>
-                                     -->
+                                    
                                     
                                     
                                 </ul>                                        
@@ -122,13 +119,13 @@
                             <a href="#warehouseProductStockMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-archive">&nbsp;</i>&nbsp;Inventory</a>
                             <ul class="collapse list-unstyled" id="warehouseProductStockMenu">
                                 <li>
-                                    <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-list-alt">&nbsp;</i>&nbsp;Dalam Sistem</a>
+                                    <a href="<?php echo base_url('warehouse/product/inventory'); ?>"><i class="fas fa-list-alt">&nbsp;</i>&nbsp;In System</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url('warehouse/stock/opname'); ?>"><i class="fas fa-list">&nbsp;</i>&nbsp;Opname</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('warehouse/stock/adjust'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Penyesuaian</a>
+                                    <a href="<?php echo base_url('warehouse/stock/adjust'); ?>"><i class="fas fa-database">&nbsp;</i>&nbsp;Adjustment</a>
                                 </li>
                             </ul>
                         </li>
@@ -152,33 +149,33 @@
                     <a href="#managerMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-chalkboard-teacher">&nbsp;</i>&nbsp;Management</a>
                     <ul class="collapse list-unstyled" id="managerMenu">                                        
                         <li>
-                            <a href="#managerEmploymentMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users">&nbsp;</i>&nbsp;Pengelolaan Karyawan</a>
+                            <a href="#managerEmploymentMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users">&nbsp;</i>&nbsp;Employment</a>
                                 <ul class="collapse list-unstyled" id="managerEmploymentMenu">
                                     <li>
-                                        <a href="<?php echo base_url('management/employment/add'); ?>"><i class="fas fa-plus-square">&nbsp;</i>&nbsp;Tambah Karyawan</a>
+                                        <a href="<?php echo base_url('management/employment/add'); ?>"><i class="fas fa-chart-line">&nbsp;</i>&nbsp;Add Staff</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('management/employment/list'); ?>"><i class="fas fa-list">&nbsp;</i>&nbsp;Daftar Karyawan</a>
+                                        <a href="<?php echo base_url('management/employment/list'); ?>"><i class="fas fa-list">&nbsp;</i>&nbsp;Staff List</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('management/employment/salary'); ?>"><i class="fas fa-cash-register">&nbsp;</i>&nbsp;Pembayaran Gaji</a>
+                                        <a href="<?php echo base_url('management/employment/salary'); ?>"><i class="fas fa-money-bill-wave-alt ">&nbsp;</i>&nbsp;Salary</a>
                                     </li>                                    
                                 </ul>                                        
                         </li>
                         <li>
-                            <a href="#managerReportMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-chalkboard-teacher">&nbsp;</i>&nbsp;Laporan Manajerial</a>
+                            <a href="#managerReportMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-chalkboard-teacher">&nbsp;</i>&nbsp;Reports</a>
                                 <ul class="collapse list-unstyled" id="managerReportMenu">
                                     <li>
-                                        <a href="<?php echo base_url('management/report/cash'); ?>"><i class="fas fa-chart-line">&nbsp;</i>&nbsp;Laporan Arus Kas</a>
+                                        <a href="<?php echo base_url('management/report/cash'); ?>"><i class="fas fa-chart-line">&nbsp;</i>&nbsp;Cash Report</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('management/report/sales'); ?>"><i class="fas fa-chart-line">&nbsp;</i>&nbsp;Laporan Penjualan</a>
+                                        <a href="<?php echo base_url('management/report/sales'); ?>"><i class="fas fa-chart-line">&nbsp;</i>&nbsp;Sales Report</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('management/report/purchase'); ?>"><i class="fas fa-chart-bar">&nbsp;</i>&nbsp;Laporan Pembelian</a>
+                                        <a href="<?php echo base_url('management/report/purchase'); ?>"><i class="fas fa-chart-bar">&nbsp;</i>&nbsp;Purchase Report</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('management/report/inventory'); ?>"><i class="fas fa-chart-pie">&nbsp;</i>&nbsp;Laporan Stok di Gudang</a>
+                                        <a href="<?php echo base_url('management/report/inventory'); ?>"><i class="fas fa-chart-pie">&nbsp;</i>&nbsp;Inventory Report</a>
                                     </li>
                                 </ul>                                        
                         </li>

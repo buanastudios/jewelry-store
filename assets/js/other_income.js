@@ -3,6 +3,9 @@ $(function(){
 	var url_remove 				= baseurl + 'transaction/other_income/delete';
 	var url_insert				= baseurl + 'transaction/insert_income';
 	var url_insert_new_label 	= baseurl + 'transaction/insert_newlabel';
+	var url_transaction_labels 	= baseurl + 'transaction/grab_existinglabels';
+	var url_get_session 		= baseurl + "login/api_retrieve_session";
+	var is_session_expired = 0;
 
 	var $tablen = $("#transactions_list");
 
@@ -25,6 +28,35 @@ $(function(){
 		$("#radiolabel2").prop("checked", true);
 	}
 
+	function displayCurrentSession(res){
+		console.log(res.data);
+		console.log(res.data.u_id);
+		console.log(parseInt(res.data.u_id));
+		var ensureInteger = parseInt(res.data.u_id);
+		if(ensureInteger>0){
+			is_session_expired = 0;
+		};
+
+		if (res.data.u_id == undefined){
+			is_session_expired = 1;		
+		};
+
+		console.log(is_session_expired);
+	}
+
+	function getCurrentSession(){		
+		$.ajax({
+			type: "POST",
+			async: false,
+			url: url_get_session,
+			dataType: 'json',
+			async: false,				
+			success: displayCurrentSession
+		});				
+	}
+
+
+
 	function save_trx(e){
 		e.preventDefault();
 		var recap_data = {
@@ -36,17 +68,22 @@ $(function(){
 		
 		console.log(recap_data);
 
-		$.ajax({
-			url: url_insert,
-			type: 'POST',
-			async: false,
-			data:recap_data,
-			success: function(res){
-				console.log(res);
-			}
-		})
+		getCurrentSession();
+		if (is_session_expired>0){			
+			alert("SESSION sudah Expired atau belum memilih NAMA KARYAWAN");
+		}else{
+			$.ajax({
+				url: url_insert,
+				type: 'POST',
+				async: false,
+				data:recap_data,
+				success: function(res){
+					console.log(res);
+				}
+			})
 
-		getTransactions();
+			getTransactions();
+		}
 	}
 	
 	function gettingRadioLabel(){
@@ -86,7 +123,20 @@ $(function(){
 	function init(){
 		moment.locale('id');
 		numeral.locale('id');    
+		getTransactionLabels();
 		getTransactions();
+	}
+
+	function refillLabels(res){
+		var existing_label = $("#existed_income_label");
+		var opt_group = $("<optgroup />").attr('label', 'Jenis Jenis Pendapatan');
+		existing_label.empty();		
+		
+		$.each(res.data, function(i,v){ 
+			opt_group.append($("<option />").attr("value",v.id).html(v.label));
+		});
+
+		existing_label.append(opt_group);
 	}
 
 	function refillTable(res){		
@@ -144,7 +194,18 @@ $(function(){
   		});		
 	}
 
-
+	function getTransactionLabels(){		
+		$.ajax({
+  			type: "POST",
+  			url: url_transaction_labels,
+  			dataType: 'json',
+  			async: false,
+  			data: {
+  				trx_label_id: '3'				
+  			},
+  	  		success: refillLabels
+  		});		
+	}
 
 	function getTransactions(){			
   		$.ajax({

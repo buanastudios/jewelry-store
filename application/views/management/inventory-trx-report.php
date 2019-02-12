@@ -2,7 +2,7 @@
         <div id="content">
         	<div class="row">
 				<div class="col-md-6">
-					<h3>Inventory Transaction Report</h3>
+					<h3>Inventory &raquo; Laporan Transaksi Barang</h3>
 				</div>
 			</div>
         	<div class="row">

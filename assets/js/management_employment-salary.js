@@ -2,6 +2,8 @@ $(function(){
   var url_salary_insert = baseurl+'transaction/sales'; 
   var url_transaction = baseurl+'transaction/salary';   
   var url_employee_list = baseurl + 'employee/searchByTerm';
+  var url_staff_list = baseurl + 'management/employment/list';
+  
   var $tablen = $("#transactions_list");
 
   // $("#existed_expense_label").on("change",ensurefirstradioselected);
@@ -10,6 +12,7 @@ $(function(){
   // $("#btn_manage_label").on('click', managelabels);
   // 
   $("#makepayment").on('click', makePayment);
+  $("#employee_list_btn").on("click", employee_list);
 
   $("#periode").daterangepicker();
 
@@ -105,9 +108,9 @@ $(function(){
                         .append($("<td />").addClass("text-center align-middle").html(moment(v.trx_date).format("ll")))
                         .append($("<td />").addClass("text-center align-middle").html(moment(v.trx_date).format("HH:mm:ss")))
                         .append($("<td />").addClass("text-center align-middle").html(v.label))
-                        .append($("<td />").addClass("text-right align-middle").html(numeral(v.trx_amount).format('$ 0,0.00')))
+                        .append($("<td />").addClass("text-right align-middle").html(numeral(parseFloat(v.trx_amount)).format('$ 0,0.00')))
                         .append($("<td />").addClass("text-left align-middle").html(v.trx_description))                        
-                        .append($("<td />").addClass("text-center align-middle").append($(action_buttons)));
+                        .append($("<td />").addClass("text-center align-middle").append($(action_buttons)));                        
           $tbody.append($trow);
       });
 
@@ -120,5 +123,10 @@ $(function(){
     getTransactions();
   }
 
+  function employee_list(e){
+    e.preventDefault();
+    console.log('daftar karyawan');
+    window.location.href = url_staff_list;
+  }
   init();
 });

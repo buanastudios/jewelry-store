@@ -3,10 +3,20 @@ class m_user extends CI_Model {
     private $table = "users";
     private $viewname = "vw_users";
     
-    function cek($u, $p) {        
+    function cek_with_password($u, $p) {        
         $this->db->where("id",$u);       
         $this->db->where("pass",$p);
         return $this->db->get("users_logged");
+    }
+
+    function cek_without_password($u) {        
+        $this->db->where("id",$u);               
+        return $this->db->get("users_logged");
+    }
+
+    function cek($u,$p=''){            
+        return $this->cek_without_password($u);
+        // $this->cek_with_password($u,$p);
     }
 
     function ceking($username, $password) {

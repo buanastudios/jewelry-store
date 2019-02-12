@@ -1,17 +1,26 @@
         <!-- Page Content Holder -->
         <div id="content">
             <div class="row">
-                <div class="col-md-6">
-                    <h4>Management &raquo; Employment &raquo; Salary</h4>
+                <div class="col-md-12">
+                    <h4>Manajerial &raquo; Pengelolaan Karyawan &raquo; Penggajian</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div id="toolbar">
+                        <div class="btn-group">
+                            <button id="employee_list_btn" type="button" class="btn btn-sm btn-primary">
+                                <i class="fas fa-list"></i>&nbsp;Daftar Staff
+                            </button>                                                                                    
+                        </div>
+                 </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 		
                 </div>  
-			</div>
-            
-            
+			      </div>            
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                    <form method="POST" enctype="multipart/form-data">  
@@ -23,7 +32,7 @@
                       <div class="row">                        
                         <label for="periode" class="col col-form-label">Periode</label>                        
                         <div class="col text-right">
-                          <input type="text" class="form-control" placeholder="Periode Gaji" id="periode" name="periode" />
+                          <input type="text" class="form-control form-control-sm" placeholder="Periode Gaji" id="periode" name="periode" />
                         </div>
                       </div>
                       <div class="row">
@@ -34,7 +43,7 @@
                       <div class="row">
                         <label for="expense_amount" class="col col-form-label">Rp. </label>                        
                         <div class="col text-right">
-                          <input type="text" class="form-control" placeholder="Jumlah Gaji" id="salary_amount" name="salary_amount" />
+                          <input type="text" class="form-control form-control-sm" placeholder="Jumlah Gaji dalam IDR" id="salary_amount" name="salary_amount" />
                         </div>
                       </div>
                       <div class="row">
@@ -43,15 +52,20 @@
                         </div>
                       </div>
                       <div class="row">  
-                        <label for="employee" class="col  col-form-label">Karyawan</label>                        
+                        <label for="employee" class="col  col-form-label">Nama Karyawan</label>                        
                         <div class="col  ">
                             <select id="employee" class="form-control select2-single" name="employee">
                             </select>
                         </div>
                        </div>
+                      <div class="row">
+                        <div class="col">
+                            &nbsp;
+                        </div>
+                      </div> 
                        <div class="row">                        
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <button id="makepayment" type="button" class="btn btn-sm btn-success">Bayar Gaji</button>
+                        <div class="col-12">
+                            <button id="makepayment" type="button" class="btn btn-sm btn-success" style="width:100%;"><i class="fas fa-money-bill-wave-alt">&nbsp;</i>Bayar Gaji</button>
                         </div>
                       </div>
                       <div class="row">

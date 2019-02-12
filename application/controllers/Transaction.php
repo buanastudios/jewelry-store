@@ -137,6 +137,15 @@ class Transaction extends CI_Controller {
 		echo json_encode( $data );
     }
 
+    public function grab_existinglabels(){
+    	$type_id = $this->input->post('trx_label_id');
+
+		$data['data'] =	$this->m_transactions->getOtherTransactionLabels($type_id);						
+
+		header('Content-Type: application/json');    	
+		echo json_encode( $data );
+    }
+
     public function generating_invoice_num(){
     	$given_count = 4;
 		$given_length= 3;
@@ -287,7 +296,7 @@ class Transaction extends CI_Controller {
 	    		'transaction_head' => $headid,
 	    		'transaction_label' => 2,
 	    		'invoice_num' =>$invoice['invoice_num'],
-	    		'product_id' =>$invoice['product_buyback_id'],
+	    		// 'product_id' =>$invoice['product_buyback_id'],
 	    		'barcode' => $invoice['product_buyback_barcode'],
 	    		'price_per_unit' =>$invoice['product_buyback_price'],
 	    		'unit_weight' =>$invoice['product_buyback_weight']    		

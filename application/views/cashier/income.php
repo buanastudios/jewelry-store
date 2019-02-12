@@ -2,7 +2,7 @@
         <div id="content">
             <div class="row">
                 <div class="col-md-6">
-                    <h4>Front Lines &raquo; Other Income</h4>
+                    <h4>Kasir &raquo; Pendapatan Lainnya</h4>
                 </div>
             </div>
             <div class="row">
@@ -16,7 +16,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                    <form>   
                         <div class="row">
-                            <div class="col-md-3">                                
+                            <div class="col-4">                                
                                 <div class="input-group input-group-md">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="input-group input-group-md">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -79,7 +79,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                  <h4>Daftar transaksi pemasukan lain Anda pada hari ini</h4>
+                  <h4>Daftar transaksi <i>pendapatan lain</i> Anda pada hari ini</h4>
                   <small><span>Total: </span><span id="totalinpage"></span></small>                  
                 </div>  
             </div>

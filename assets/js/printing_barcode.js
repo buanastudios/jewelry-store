@@ -1270,6 +1270,34 @@ $(function(){
         qz.print(config, printData).catch(displayError);
     }
 
+
+    function printFile_new_2(filename) {        
+       var file = zplpath + "newthing2/"+ filename; 
+       console.log("printing " + file);
+        var config = getUpdatedConfig();
+
+        var printData = [
+            { type: 'raw', format: 'file', data: file + '?'+Math.random() }
+        ];
+
+        console.log(printData);
+        qz.print(config, printData).catch(displayError);
+    }
+
+
+    function printFile_new_3(filename) {        
+       var file = zplpath + "newthing3/"+ filename; 
+       console.log("printing " + file);
+        var config = getUpdatedConfig();
+
+        var printData = [
+            { type: 'raw', format: 'file', data: file + '?'+Math.random() }
+        ];
+
+        console.log(printData);
+        qz.print(config, printData).catch(displayError);
+    }
+
     function gettingReadyStocks (barcode, o){
       var stock_amount = 0;
       var placeholder = $(o);

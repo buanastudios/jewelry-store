@@ -24,6 +24,8 @@ $(function(){
     $("#import_products_btn").on("click", importProducts);
     $("#export_products_btn").on("click",exportProducts);
     $("#printbarcode_product_btn").on("click", printProductBarcodes);
+    $("#printbarcode_product_btn_2").on("click", printProductBarcodes_2);
+    $("#printbarcode_product_btn_3").on("click", printProductBarcodes_3);
     $("#checkAll").on("change", toggleTickAllRows);
     $("#opname_product_btn").on("click", opnameProduct);
 
@@ -53,6 +55,7 @@ $(function(){
       // }); 
 
     }
+    
     function printProductBarcodes(e){
       // e.preventDefault();
 
@@ -178,7 +181,13 @@ $(function(){
   		});		
   	}
 
-    function refillTable(data){
+    function resetTable(){      
+      $tablen.empty();
+    }
+
+    function refillTable(data){      
+      resetTable();
+
       $tbody = $tablen.append("<tbody />");
       $("thead th", $tablen).addClass("text-center");
       $.each(data.data, function(i,v){        
@@ -205,7 +214,7 @@ $(function(){
                                                 .append(product_properties_priceperweight);
 
         var product_wrapper = $("<div />").css("width","200px").append(product_wrapper_left).append(product_wrapper_right);
-        var product_barcode = $("<div />").addClass("text-center").css("height","100px").css("padding","10px").css("background-color","white").append("<img src='http://localhost/courses/derry/jewelry-store/vendor/barcodegen.1d-php5.v2.2.0/html/image.php?code=code128&amp;o=1&amp;dpi=72&amp;t=30&amp;r=1&amp;rot=0&amp;text="+v.barcode+"&amp;f1=Arial.ttf&amp;f2=8&amp;a1=&amp;a2=&amp;a3=' alt='Barcode Image'>");
+        var product_barcode = $("<div />").addClass("text-center").css("height","100px").css("padding","10px").css("background-color","white").append("<img src='"+baseurl + "vendor/barcodegen.1d-php5.v2.2.0/html/image.php?code=code128&amp;o=1&amp;dpi=72&amp;t=30&amp;r=1&amp;rot=0&amp;text="+v.barcode+"&amp;f1=Arial.ttf&amp;f2=8&amp;a1=&amp;a2=&amp;a3=' alt='Barcode Image'>");
 
         // var product_status = $("<div />").addClass("badge");
 
@@ -401,6 +410,7 @@ $(function(){
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       
+      getProductInventory();      
     }
 
     function getResponseAfterRemoveRow(o){

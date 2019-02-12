@@ -61,10 +61,10 @@
                         </select>
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
-                    <div class="form-group has-feedback">
+                    <!-- <div class="form-group has-feedback">
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
+                     </div>-->
                     <div class="row">	
                         <div class="col-xs-8">    
                             <div class="checkbox icheck">

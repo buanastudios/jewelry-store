@@ -5,6 +5,27 @@
 					<h4>Management &raquo; Employment &raquo; Add</h4>
 				</div>
 			</div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div id="toolbar">
+                        <div class="btn-group">
+                            <button id="employee_list_btn" type="button" class="togglehistory btn btn-sm btn-primary">
+                                <i class="fas fa-list"></i>&nbsp;Daftar Staff
+                            </button>                                                                                            
+                        </div>
+                        <div class="btn-group">
+                            <button id="employee_salary_btn" type="button" class="btn btn-sm btn-success">
+                                <i class="fas fa-money-bill-wave-alt"></i>&nbsp;Gaji Staff
+                            </button>                                                                                    
+                        </div>
+                     </div>
+                 </div>
+             </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  &nbsp;
+                 </div>
+             </div>
         	<div class="row">
 				<div class="col-md-6">
 					<form id="new_employee">

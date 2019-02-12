@@ -195,13 +195,28 @@ $(function(){
                   }]
     });
 
+    $("#row_print").on("click", print_items);
+    $("#row_cancel").on("click", cancel_items);
     $("#row_remove").on("click", remove_items);
     $("#rows_refresh").on("click", reload_items);
+
+    function print_items(e){
+      e.preventDefault();
+      alert('attempt to print transaction(s)');
+      refresh_the_table(url_list);
+    }
+
+    function cancel_items(e){
+      e.preventDefault();
+      alert('attempt to cancel transaction(s)');
+      refresh_the_table(url_list);
+    }
 
     function reload_items(e){
       e.preventDefault();
       refresh_the_table(url_list);
     }
+
     function remove_items(e){
       e.preventDefault();
       var ids = $.map($tablen.bootstrapTable('getSelections'), function(row) {

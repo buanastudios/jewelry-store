@@ -223,10 +223,15 @@ class Barcode extends CI_Controller {
 			//put it real
 			$distributed_file[$nfile][$lmax]['filename'] = $generated_filename[$nfile];
 			$distributed_file[$nfile][$lmax]['barcode'] = $value_barcode;
-			$distributed_file[$nfile][$lmax]['weight'] = $barcode_properties[$value_barcode][0];
+			$distributed_file[$nfile][$lmax]['weight'] = $barcode_properties[$value_barcode][0];			
 			$distributed_file[$nfile][$lmax]['is_secondhand'] = $barcode_properties[$value_barcode][1];
 			$distributed_file[$nfile][$lmax]['product_class'] = $barcode_properties[$value_barcode][2];
 
+			switch($distributed_file[$nfile][$lmax]['is_secondhand']){
+				case "Barang Bekas": $distributed_file[$nfile][$lmax]['is_secondhand']=''; break();
+				case "Barang Baru": $distributed_file[$nfile][$lmax]['is_secondhand']="BRB"; break();
+
+			}
 			if ($lmax == 0){
 				$nfile++;
 				$lmax = $barcode_max;

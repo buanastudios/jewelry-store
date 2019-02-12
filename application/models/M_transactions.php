@@ -135,7 +135,16 @@ class m_transactions extends CI_Model {
 
     public function getOtherIncomeTransaction(){
         $this->db->order_by("trx_date","desc");
-       $query = $this->db->get($this->view_otherincome);
+        $query = $this->db->get($this->view_otherincome);
+        return $query->result();
+    }
+
+    public function getOtherTransactionLabels($type_id){
+        $this->db->order_by("id","desc");
+        $this->db->order_by("trx_type_id","desc");
+        $this->db->order_by("label","desc");
+        $this->db->where('trx_type_id',$type_id);
+        $query = $this->db->get('transaction_labels');
         return $query->result();
     }
 

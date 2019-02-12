@@ -219,7 +219,7 @@ $(function(){
                                           .append(product_image);
 
         $trow = $("<tr/>")                  
-                        .append($("<td />").addClass("text-center").addClass("checkbox").append($("<input />").attr("type","checkbox").attr("id","check_"+i)))
+                        .append($("<td />").html("")) //.addClass("text-center").addClass("checkbox").append($("<input />").attr("type","checkbox").attr("id","check_"+i)))
                         .append($("<td />").css("white-space","nowrap").html(v.barcode))                        
                         .append($("<td />").append(product_wrapper))                                                
                         .append($("<td />").append($("<input />").addClass("form-control").addClass("stock-input")))

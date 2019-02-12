@@ -2,7 +2,7 @@
         <div id="content">
             <div class="row">
                 <div class="col-md-6">
-                    <h4>Front Lines &raquo; History</h4>
+                    <h4>Kasir &raquo; Histori</h4>
                 </div>
             </div>
             <div class="row">
@@ -10,26 +10,26 @@
                 	<div id="toolbar">
                         <div class="btn-group">
                             <button id="toggle_sales" type="button" class="togglehistory btn btn-primary">
-                                <i class="fas fa-indent"></i>&nbsp;Sales
+                                <i class="fas fa-indent"></i>&nbsp;Penjualan
                             </button>
                             <button id="toggle_purchase" type="button" class="togglehistory btn btn-warning">
-                                <i class="fas fa-outdent"></i>&nbsp;Purchase
+                                <i class="fas fa-outdent"></i>&nbsp;Pembelian
                             </button>                        
-                            <button id="toggle_expense" type="button" class="togglehistory btn btn-warning">
+                            <!-- <button id="toggle_expense" type="button" class="togglehistory btn btn-warning">
                                 <i class="fas fa-outdent"></i>&nbsp;Expense
-                            </button>                        
+                            </button>                         -->
                         </div>
                         
                         <div class="btn-group">
                             <button id="row_print" type="button" class="btn btn-success">
-                                <i class="fas fa-print"></i>
+                                <i class="fas fa-print"></i>&nbsp;Print Invoice
                             </button>
                             <button id="row_cancel" type="button" class="btn btn-warning">
-                                <i class="fas fa-ban"></i>
+                                <i class="fas fa-ban"></i>&nbsp;Batalkan Transaksi
                             </button>
-                            <button id="row_remove" type="button" class="btn btn-danger">
+                            <!-- <button id="row_remove" type="button" class="btn btn-danger">
                                 <i class="fas fa-trash"></i>
-                            </button>
+                            </button> -->
                             <button id="rows_refresh" type="button" class="btn btn-default">
                                 <i class="fas fa-sync"></i>
                             </button>

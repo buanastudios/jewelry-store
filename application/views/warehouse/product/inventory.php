@@ -22,7 +22,9 @@
                         <button id="activate_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-check"></i> Activate</button>
                     </div> -->
                     <div class="btn-group">
-                        <button id="printbarcode_product_btn" class="btn btn-outline-primary btn-sm"><i class="fa fa-barcode">&nbsp;</i>Print Barcode</button>
+                        <button id="printbarcode_product_btn" class="btn btn-outline-primary btn-sm"><i class="fa fa-barcode">&nbsp;</i>Print Barcode 1</button>
+                        <button id="printbarcode_product_btn_2" class="btn btn-outline-primary btn-sm"><i class="fa fa-barcode">&nbsp;</i>Print Barcode 2</button>
+                        <button id="printbarcode_product_btn_3" class="btn btn-outline-primary btn-sm"><i class="fa fa-barcode">&nbsp;</i>Print Barcode 3</button>
                         <!-- <button id="activate_product_btn" class="btn btn-outline-success btn-sm"><i class="fa fa-check"></i> Activate</button> -->
                     </div>
 

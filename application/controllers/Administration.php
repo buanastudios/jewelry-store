@@ -8,9 +8,9 @@ class Administration extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-        if (!$this->session->userdata('u_name')) {
-            redirect('login');
-        }
+        // if (!$this->session->userdata('u_name')) {
+        //     redirect('login');
+        // }
 
         $m = new \Moment\Moment("now","Asia/Jakarta");
         $this->global['today'] = $m->format();
@@ -63,9 +63,9 @@ class Administration extends CI_Controller {
 
 	public function menu_lists(){
 		$data = ['wenzhixin'=>true,'b'=>$this->global['today_date']];
-		$assets = ['css'=>'administration_menu_list.css','js'=>'administration_menu_list.js'];				
+		$assets = ['css'=>'administration_menu-list.css','js'=>'administration_menu-list.js'];				
 		$this->load->view('header',$assets);
-		$this->load->view('sidebar',$data);
+		// $this->load->view('sidebar',$data);
 		$this->load->view('administration/menu/list',$data);
 		$this->load->view('footer',$assets);	
 	}
@@ -74,7 +74,7 @@ class Administration extends CI_Controller {
 		$data = ['a','b'];
 		$assets = ['css'=>'administration_menu_add.css','js'=>'administration_menu_add.js'];				
 		$this->load->view('header',$assets);
-		$this->load->view('sidebar',$data);
+		// $this->load->view('sidebar',$data);
 		$this->load->view('administration/menu/assignment',$data);
 		$this->load->view('footer',$assets);	
 	}
@@ -83,7 +83,7 @@ class Administration extends CI_Controller {
 		$data = ['a','b'];
 		$assets = ['css'=>'administration_menu_add.css','js'=>'administration_menu_add.js'];				
 		$this->load->view('header',$assets);
-		$this->load->view('sidebar',$data);
+		// $this->load->view('sidebar',$data);
 		$this->load->view('administration/menu/add',$data);
 		$this->load->view('footer',$assets);	
 	}
